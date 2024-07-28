@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  username      String
+  description   String?
+  email         String
+  password      String
+  image         String?
+  emailVerified DateTime?
+  location      String?
+  group         Group[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, username])
+}
+
+model verificationToken {
+  id     String   @id @default(cuid())
+  email  String
+  token  String   @unique
+  expire DateTime
+
+  @@unique([email, token])
+}
+
+model Group {
+  id            String           @id @default(cuid())
+  name          String           @unique
+  description   String?
+  location      String?
+  postalCode    Int[]
+  image         String?
+  modaratorId   String
+  groupType     GroupType        @default(open)
+  sportPraticed SportPracticed[] @default([])
+  createdAt     DateTime         @default(now())
+
+  user User @relation(fields: [modaratorId], references: [id])
+}
+
+enum SportPracticed {
+  road_running
+  trail_running
+  walking
+  road_cycling
+  gravel_cycling
+  mountain_biking
+}
+
+enum GroupType {
+  close
+  open
+  invitation
+}

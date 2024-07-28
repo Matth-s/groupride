@@ -1,0 +1,10 @@
+.NewGroupForm {
+  width: 450px;
+  margin: auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

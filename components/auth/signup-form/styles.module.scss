@@ -1,0 +1,14 @@
+.SignupForm {
+  width: 400px;
+  height: auto;
+
+  div {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  button[type='submit'] {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

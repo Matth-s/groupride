@@ -1,0 +1,29 @@
+.LocationInput {
+  ul {
+    width: 100%;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 56px;
+    border-right: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+
+    &:hover {
+      background-color: blue;
+      color: white;
+    }
+  }
+
+  li:first-child {
+    border-top: 1px solid lightgray;
+  }
+  li:first-child {
+    border-bottom: 1px solid lightgray;
+  }
+}
