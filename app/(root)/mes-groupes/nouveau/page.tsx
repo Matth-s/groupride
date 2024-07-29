@@ -1,4 +1,4 @@
-import NewGroupForm from '@/components/my-groups/new-group-form/NewGroupForm';
+import NewGroupForm from '@/components/groups/new-group-form/NewGroupForm';
 import React from 'react';
 
 const NewGroup = () => {

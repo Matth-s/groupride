@@ -1,4 +1,4 @@
-import MyGroupsNav from '@/components/my-groups/my-groups-nav/MyGroupsNav';
+import MyGroupsNav from '@/components/groups/my-groups-nav/MyGroupsNav';
 import React from 'react';
 
 type MyGroupLayoutProps = {

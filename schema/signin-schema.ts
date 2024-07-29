@@ -1,5 +1,5 @@
+import { signinInterface } from '@/interfaces/auth';
 import { z } from 'zod';
-import { signinInterface } from '@/interfaces/auth-types';
 
 export const signinSchema: z.ZodType<signinInterface> = z.object({
   email: z

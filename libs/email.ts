@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import { DEFAULT_URL_API } from '@/routes';
+import { URL } from '@/routes';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -19,7 +19,7 @@ export async function sendVerificationEmail({
   email: string;
   token: string;
 }) {
-  const confirmLink = `${DEFAULT_URL_API}/authentification/nouvelle-verification?token=${token}`;
+  const confirmLink = `${URL}/authentification/nouvelle-verification?token=${token}`;
   try {
     await transporter.sendMail({
       from: process.env.EMAIL_SENDER,

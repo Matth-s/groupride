@@ -1,0 +1,12 @@
+.Aside {
+  width: 250px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid blue;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

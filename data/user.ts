@@ -27,3 +27,17 @@ export const getUserById = async (id: string) => {
     return null;
   }
 };
+
+export const getUserByUsername = async (username: string) => {
+  try {
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        username,
+      },
+    });
+
+    return existingUser;
+  } catch {
+    return null;
+  }
+};

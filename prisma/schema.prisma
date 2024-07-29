@@ -12,10 +12,10 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String           @id @default(cuid())
   firstName     String
   lastName      String
-  username      String
+  username      String           @unique
   description   String?
   email         String
   password      String
@@ -23,6 +23,8 @@ model User {
   emailVerified DateTime?
   location      String?
   group         Group[]
+  groups        GroupUser[]
+  invitations   InvitationList[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -40,18 +42,45 @@ model verificationToken {
 }
 
 model Group {
-  id            String           @id @default(cuid())
-  name          String           @unique
-  description   String?
-  location      String?
-  postalCode    Int[]
-  image         String?
-  modaratorId   String
-  groupType     GroupType        @default(open)
-  sportPraticed SportPracticed[] @default([])
-  createdAt     DateTime         @default(now())
+  id             String           @id @default(cuid())
+  name           String           @unique
+  description    String?
+  location       String?
+  postalCode     Int[]
+  image          String?
+  moderatorId    String
+  groupType      GroupType        @default(open)
+  sportPraticed  SportPracticed[] @default([])
+  createdAt      DateTime         @default(now())
+  users          GroupUser[]
+  invitationList InvitationList[]
 
-  user User @relation(fields: [modaratorId], references: [id])
+  user User @relation(fields: [moderatorId], references: [id])
+}
+
+model InvitationList {
+  userId  String
+  groupId String
+
+  user  User  @relation(fields: [userId], references: [id])
+  group Group @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+model GroupUser {
+  userId  String
+  groupId String
+  role    Role   @default(member)
+  user    User   @relation(fields: [userId], references: [id])
+  group   Group  @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+enum Role {
+  admin
+  member
 }
 
 enum SportPracticed {

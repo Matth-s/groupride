@@ -7,7 +7,7 @@ import { generateVerificationToken } from '@/libs/token';
 import { signinSchema } from '@/schema/signin-schema';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
-import { DEFAULT_REDIRECT } from '@/routes';
+import { URL } from '@/routes';
 
 export const signin = async (
   values: z.infer<typeof signinSchema>
@@ -31,16 +31,24 @@ export const signin = async (
   }
 
   if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(email);
+    try {
+      const verificationToken = await generateVerificationToken(
+        email
+      );
 
-    await sendVerificationEmail({
-      email: verificationToken.email,
-      token: verificationToken.token,
-    });
+      await sendVerificationEmail({
+        email: verificationToken.email,
+        token: verificationToken.token,
+      });
 
-    return {
-      success: 'Email de vérification envoyé',
-    };
+      return {
+        success: 'Email de vérification envoyé',
+      };
+    } catch (error) {
+      return {
+        error: 'Une erreur est survenue veuillez ressayer',
+      };
+    }
   }
 
   try {
@@ -48,7 +56,7 @@ export const signin = async (
       email,
       password,
       redirect: true,
-      redirectTo: DEFAULT_REDIRECT,
+      redirectTo: URL,
     });
 
     return {
@@ -60,7 +68,9 @@ export const signin = async (
         case 'CredentialsSignin':
           return { error: 'Email ou mot de passe invalide' };
         default: {
-          return { error: 'Une erreur est survenue' };
+          return {
+            error: 'Une erreur est survenue veuillez ressayer',
+          };
         }
       }
     }

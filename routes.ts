@@ -8,4 +8,4 @@ export const AUTH_ROUTES = [
 
 export const apiPrefix = 'http://localhost:3000/api';
 export const apiAuthPrefix = '/api/auth';
-export const DEFAULT_REDIRECT = 'http://localhost:3000';
+export const URL = 'http://localhost:3000';

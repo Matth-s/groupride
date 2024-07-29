@@ -25,6 +25,7 @@
     "react-debounce-input": "^3.3.0",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "react-toastify": "^10.0.5",
     "sass": "^1.77.8",
     "uuidv4": "^6.2.13",
     "zod": "^3.23.8"

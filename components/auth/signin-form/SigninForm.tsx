@@ -5,17 +5,20 @@ import FormFieldError from '@/ui/form-field-error/FormFieldError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 import Link from 'next/link';
-import { startTransition, useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import styles from './styles.module.scss';
 import { signin } from '@/actions/signin';
 import SubmitButton from '@/ui/submit-button/SubmitButton';
+import FormSubmitSuccess from '@/ui/form-submit-success/FormSubmitSuccess';
+import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 
 const SigninForm = () => {
-  const [isPending, stratTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const {
@@ -31,8 +34,14 @@ const SigninForm = () => {
   });
 
   const handleFormSubmit = (values: z.infer<typeof signinSchema>) => {
+    setError(undefined);
+    setSuccess(undefined);
+
     startTransition(() =>
-      signin(values).then((res) => console.log(res))
+      signin(values).then((res) => {
+        if (res?.error) return setError(res.error);
+        if (res?.success) return setSuccess(res.success);
+      })
     );
   };
 
@@ -77,9 +86,12 @@ const SigninForm = () => {
         />
 
         <SubmitButton isPending={isPending} label="Se connecter" />
+
+        <FormSubmitError message={error} />
+        <FormSubmitSuccess message={success} />
       </form>
       <p>
-        Vous n'avez pas de compte ?
+        Vous n&apos;avez pas de compte ?
         <Link href={'/authentification/inscription'}>
           Inscrivez-vous
         </Link>

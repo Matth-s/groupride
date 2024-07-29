@@ -1,11 +1,11 @@
 import { auth } from '@/auth';
 import prisma from '@/libs/prisma';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = auth(async (request) => {
-  const authRequest = request.auth;
+export const GET = async (req: NextRequest): Promise<Response> => {
+  const session = await auth();
 
-  if (!authRequest) {
+  if (!session || !session.user.id) {
     return NextResponse.json(
       {
         message:
@@ -17,12 +17,12 @@ export const GET = auth(async (request) => {
     );
   }
 
-  const userId = authRequest.user.id;
+  const userId = session.user.id;
 
   try {
     const groups = await prisma.group.findMany({
       where: {
-        modaratorId: userId,
+        moderatorId: userId,
       },
     });
     return NextResponse.json(groups);
@@ -36,4 +36,4 @@ export const GET = auth(async (request) => {
       }
     );
   }
-});
+};

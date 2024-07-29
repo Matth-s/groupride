@@ -1,16 +1,32 @@
-enum GroupType {
-  'close',
-  'open',
-  'invitation',
+export enum GroupType {
+  close = 'close',
+  open = 'open',
+  invitation = 'invitation',
 }
 
-enum SportPracticed {
+export enum SportPracticed {
   'road_running',
   'trail_running',
   'walking',
   'road_cycling',
   'gravel_cycling',
   'mountain_biking',
+}
+
+export enum GroupRole {
+  member = 'member',
+  admin = 'admin',
+}
+
+export interface InvitationList {
+  userId: string;
+  groupId: string;
+}
+
+export interface UsersInterface {
+  userId: string;
+  groupId: string;
+  role: GroupRole;
 }
 
 export interface groupInterface {
@@ -22,11 +38,11 @@ export interface groupInterface {
   image?: string;
   moderatorId: string;
   groupType: GroupType;
-  sportPracticed: SportPracticed[];
+  sportPracticed: SportPracticed[] | undefined;
   createdAt: Date;
 }
 
-export type FetchGroupsResponse =
+export type fetchGroupsResponse =
   | {
       success: false;
       data: null;

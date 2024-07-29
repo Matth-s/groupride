@@ -7,12 +7,12 @@ declare module 'next-auth' {
       firstName: string;
       lastName: string;
       username: string;
-      description?: string;
+      description: string | null;
       email: string;
       password: string;
-      image?: string;
-      emailVerified?: Date; // 'date' should be 'Date'
-      location?: string;
+      image: string | null;
+      emailVerified: Date | null;
+      location: string | null;
     } & DefaultSession['user'];
   }
 
@@ -20,19 +20,19 @@ declare module 'next-auth' {
     firstName: string;
     lastName: string;
     username: string;
-    description?: string;
+    description: string | null;
     email: string;
     password: string;
-    image?: string;
-    emailVerified?: Date;
-    location?: string;
+    image: string | null;
+    emailVerified: Date | null;
+    location: string | null;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
     email: string;
-    picture?: string;
+    image: string | undefined;
     sub: string;
     iat: number;
     exp: number;

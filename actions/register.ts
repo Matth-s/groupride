@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { signupSchema } from '@/schema/signup-schema';
-import { getUserByEmail } from '@/data/user';
+import { getUserByEmail, getUserByUsername } from '@/data/user';
 import { generateVerificationToken } from '@/libs/token';
 import { sendVerificationEmail } from '@/libs/email';
 
@@ -20,14 +20,22 @@ export const registerUser = async (
     };
   }
 
-  const { email, password, confirmPassword, ...rest } =
+  const { email, password, confirmPassword, username, ...rest } =
     validatedFields.data;
 
-  const existingUser = await getUserByEmail(email);
+  const emailAlreadyTaken = await getUserByEmail(email);
 
-  if (existingUser) {
+  if (emailAlreadyTaken) {
     return {
       error: 'Cet email est déjà utilisé',
+    };
+  }
+
+  const usernameAlreadyTaken = await getUserByUsername(username);
+
+  if (usernameAlreadyTaken) {
+    return {
+      error: "Ce nom d'utilisateur est déjà utilisé",
     };
   }
 
@@ -36,6 +44,7 @@ export const registerUser = async (
   const userData = {
     email,
     password: hashPassword,
+    username,
     ...rest,
   };
 

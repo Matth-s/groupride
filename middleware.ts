@@ -3,12 +3,10 @@ import authConfig from './auth.config';
 import {
   apiAuthPrefix,
   AUTH_ROUTES,
-  DEFAULT_REDIRECT,
+  URL as defaultRoute,
   PUBLIC_ROUTES,
 } from './routes';
 import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
-
 const { auth } = NextAuth(authConfig);
 
 export default auth((req: NextRequest & { auth: Session | null }) => {
@@ -25,9 +23,7 @@ export default auth((req: NextRequest & { auth: Session | null }) => {
 
   if (isAuthRoute) {
     if (isAuthenticated) {
-      return NextResponse.redirect(
-        new URL(DEFAULT_REDIRECT, nextUrl)
-      );
+      return NextResponse.redirect(new URL(defaultRoute, nextUrl));
     } else {
       return NextResponse.next();
     }

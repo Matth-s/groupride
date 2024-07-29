@@ -1,0 +1,21 @@
+.NewVerification {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .Loader {
+    display: block;
+    margin: auto;
+  }
+
+  p {
+    text-align: center;
+  }
+}

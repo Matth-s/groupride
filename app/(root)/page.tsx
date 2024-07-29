@@ -1,4 +1,4 @@
-import GroupList from '@/components/my-groups/group-list/GroupList';
+import GroupList from '@/components/groups/group-list/GroupList';
 import React, { Suspense } from 'react';
 import { apiPrefix } from '@/routes';
 
