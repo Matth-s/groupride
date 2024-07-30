@@ -1,5 +1,6 @@
 .Aside {
-  width: 250px;
+  min-width: 250px;
+  height: fit-content;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid blue;

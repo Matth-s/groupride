@@ -1,4 +1,4 @@
-import { groupInterface } from '@/interfaces/group';
+import { groupInterface } from '@/interfaces/groups';
 import React, { Suspense } from 'react';
 import CardButton from '../card-button/CardButton';
 

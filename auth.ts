@@ -31,6 +31,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
       return true;
     },
+
+    authorized: async ({ auth }) => {
+      console.log(auth, 'autoriezd');
+      return !!auth;
+    },
   },
   trustHost: true,
   secret: process.env.AUTH_SECRET,

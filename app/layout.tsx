@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.scss';
-import { Flip, ToastContainer, Zoom } from 'react-toastify';
+import { Flip, ToastContainer } from 'react-toastify';
+import StoreProvider from '@/components/StoreProvider';
 import 'react-toastify/dist/ReactToastify.css';
+import './globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +20,8 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        {children}
+        <StoreProvider>{children}</StoreProvider>
+
         <ToastContainer
           position="bottom-center"
           autoClose={5000}

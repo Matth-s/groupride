@@ -89,7 +89,11 @@ const NewGroupForm = () => {
           <GroupType register={register} setValue={setValue} />
         </div>
 
-        <SubmitButton isPending={isPending} label="Créer le groupe" />
+        <SubmitButton
+          isPending={isPending}
+          label="Créer le groupe"
+          variant="outlined"
+        />
         <FormSubmitError message={error} />
       </form>
     </div>

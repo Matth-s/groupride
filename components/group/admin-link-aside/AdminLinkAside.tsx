@@ -5,13 +5,9 @@ import React from 'react';
 
 type AdminLinkAsideProps = {
   groupId: string;
-  moderatorId: string;
 };
 
-const AdminLinkAside = async ({
-  groupId,
-  moderatorId,
-}: AdminLinkAsideProps) => {
+const AdminLinkAside = async ({ groupId }: AdminLinkAsideProps) => {
   const basePath = `/groupes/${groupId}`;
 
   const session = await auth();
@@ -22,25 +18,22 @@ const AdminLinkAside = async ({
 
   const userId = session.user.id;
 
-  console.log(userId);
-  console.log(moderatorId);
-  const isAdmin =
-    userId === moderatorId ||
-    (await isUserAdminGroup({
-      groupId,
-      userId: userId,
-    }));
+  const isAdmin = await isUserAdminGroup({
+    groupId,
+    userId: userId,
+  });
 
-  console.log(isAdmin);
+  if (!isAdmin) return null;
 
   return (
-    <div>
-      {isAdmin ? (
-        <li>
-          <Link href={`${basePath}/parametres`}>Paramètres</Link>
-        </li>
-      ) : null}
-    </div>
+    <>
+      <li>
+        <Link href={`${basePath}/demandes`}>Demandes</Link>
+      </li>
+      <li>
+        <Link href={`${basePath}/parametres`}>Paramètres</Link>
+      </li>
+    </>
   );
 };
 

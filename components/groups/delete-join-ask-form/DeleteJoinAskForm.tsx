@@ -32,6 +32,7 @@ const DeleteJoinAskForm = ({ groupId }: DeleteJoinAskFormProps) => {
       <SubmitButton
         isPending={isPending}
         label="Supprimer la demande"
+        variant="outlined"
       />
     </form>
   );

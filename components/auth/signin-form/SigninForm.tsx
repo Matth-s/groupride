@@ -85,7 +85,11 @@ const SigninForm = () => {
           }
         />
 
-        <SubmitButton isPending={isPending} label="Se connecter" />
+        <SubmitButton
+          isPending={isPending}
+          label="Se connecter"
+          variant="outlined"
+        />
 
         <FormSubmitError message={error} />
         <FormSubmitSuccess message={success} />

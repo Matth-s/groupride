@@ -1,4 +1,4 @@
-import { fetchGroups } from '@/data/group';
+import { fetchGroups } from '@/api/group';
 import React from 'react';
 import GroupCard from '../group-card/GroupCard';
 

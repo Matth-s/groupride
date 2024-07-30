@@ -16,6 +16,7 @@
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.5",
     "@prisma/client": "^5.17.0",
+    "@reduxjs/toolkit": "^2.2.7",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "next": "14.2.5",
@@ -25,7 +26,9 @@
     "react-debounce-input": "^3.3.0",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "react-redux": "^9.1.2",
     "react-toastify": "^10.0.5",
+    "redux": "^5.0.1",
     "sass": "^1.77.8",
     "uuidv4": "^6.2.13",
     "zod": "^3.23.8"

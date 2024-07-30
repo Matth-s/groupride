@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import React, { Suspense } from 'react';
 
-import styles from './styles.module.scss';
 import AdminLinkAside from '../admin-link-aside/AdminLinkAside';
+
+import styles from './styles.module.scss';
 
 type AsideProps = {
   id: string;
-  moderatorId: string;
 };
 
-const Aside = ({ id, moderatorId }: AsideProps) => {
+const Aside = ({ id }: AsideProps) => {
   const basePath = `/groupes/${id}`;
 
   return (
@@ -28,7 +28,7 @@ const Aside = ({ id, moderatorId }: AsideProps) => {
         </li>
 
         <Suspense>
-          <AdminLinkAside groupId={id} moderatorId={moderatorId} />
+          <AdminLinkAside groupId={id} />
         </Suspense>
       </ul>
     </aside>

@@ -30,6 +30,7 @@ const AskToJoinForm = ({ groupId }: AskToJoinFormProps) => {
       <SubmitButton
         isPending={isPending}
         label="Demander à rejoindre"
+        variant="outlined"
       />
     </form>
   );

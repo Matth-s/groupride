@@ -1,0 +1,25 @@
+.Modal {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  box-sizing: border-box;
+  z-index: 10;
+  overflow: hidden;
+
+  .Content {
+    z-index: 11;
+    margin: auto;
+    height: auto;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+
+    h2 {
+      text-align: center;
+    }
+  }
+}

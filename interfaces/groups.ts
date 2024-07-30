@@ -27,6 +27,7 @@ export interface UsersInterface {
   userId: string;
   groupId: string;
   role: GroupRole;
+  joinedAt: string;
 }
 
 export interface groupInterface {
@@ -39,17 +40,5 @@ export interface groupInterface {
   moderatorId: string;
   groupType: GroupType;
   sportPracticed: SportPracticed[] | undefined;
-  createdAt: Date;
+  createdAt: string;
 }
-
-export type fetchGroupsResponse =
-  | {
-      success: false;
-      data: null;
-      message: string;
-    }
-  | {
-      success: true;
-      data: groupInterface[];
-      message?: undefined;
-    };

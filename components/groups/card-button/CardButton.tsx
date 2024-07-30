@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { GroupType } from '@/interfaces/group';
+import { GroupType } from '@/interfaces/groups';
 import { Button } from '@mui/material';
 import {
   getUserInGroup,

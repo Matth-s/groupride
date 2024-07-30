@@ -1,0 +1,9 @@
+.ActionButtonList {
+  button {
+    width: 100%;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}

@@ -1,8 +1,8 @@
 import Credentials from 'next-auth/providers/credentials';
+import bcrypt from 'bcryptjs';
 import type { NextAuthConfig } from 'next-auth';
 import { signinSchema } from './schema/signin-schema';
 import { getUserByEmail } from './data/user';
-import bcrypt from 'bcryptjs';
 
 import { CredentialsSignin } from '@auth/core/errors';
 

@@ -7,6 +7,7 @@ import {
   PUBLIC_ROUTES,
 } from './routes';
 import { NextRequest, NextResponse } from 'next/server';
+
 const { auth } = NextAuth(authConfig);
 
 export default auth((req: NextRequest & { auth: Session | null }) => {

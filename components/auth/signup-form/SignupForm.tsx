@@ -135,7 +135,11 @@ const SignupForm = () => {
           }
         />
 
-        <SubmitButton isPending={isPending} label="S'inscrire" />
+        <SubmitButton
+          isPending={isPending}
+          label="S'inscrire"
+          variant="outlined"
+        />
       </form>
 
       <FormSubmitError message={error} />

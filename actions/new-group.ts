@@ -14,7 +14,7 @@ export const createNewGroup = async (
   const session = await auth();
   let id: string;
 
-  if (!session?.user) {
+  if (!session?.user.id) {
     return {
       error: 'Vous devez être connectez pour effectuer cette action',
     };
@@ -58,7 +58,8 @@ export const createNewGroup = async (
     });
 
     id = groupSaved.id;
-  } catch {
+  } catch (error) {
+    console.log(error);
     return {
       error: 'Une erreur est survenue',
     };

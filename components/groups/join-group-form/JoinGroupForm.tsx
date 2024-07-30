@@ -17,7 +17,7 @@ const JoinGroupForm = ({ groupId }: JoinGroupFormProps) => {
 
     startTransition(() => {
       joinGroup(groupId).then((res) => {
-        if (res.error) {
+        if (res?.error) {
           toastError(res.error);
           return;
         }
@@ -29,7 +29,11 @@ const JoinGroupForm = ({ groupId }: JoinGroupFormProps) => {
 
   return (
     <form onSubmit={(e) => handleFormSubmit(e)}>
-      <SubmitButton isPending={isPending} label="Rejoindre" />
+      <SubmitButton
+        isPending={isPending}
+        label="Rejoindre"
+        variant="outlined"
+      />
     </form>
   );
 };

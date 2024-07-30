@@ -1,6 +1,4 @@
-import { fetchGroupsResponse } from '@/interfaces/groups';
 import prisma from '@/libs/prisma';
-import { headers } from 'next/headers';
 
 export const getGroupByName = async (name: string) => {
   try {
@@ -58,7 +56,7 @@ export const getUserInGroup = async ({
 }: {
   groupId: string;
   userId: string;
-}) => {
+}): Promise<boolean> => {
   try {
     const existingUserInGroup = await prisma.groupUser.findFirst({
       where: {
@@ -67,9 +65,30 @@ export const getUserInGroup = async ({
       },
     });
 
-    return existingUserInGroup;
+    return !!existingUserInGroup;
   } catch {
-    return null;
+    return false;
+  }
+};
+
+export const isGroupModerator = async ({
+  groupId,
+  userId,
+}: {
+  groupId: string;
+  userId: string;
+}): Promise<boolean> => {
+  try {
+    const isModerator = await prisma.group.findFirst({
+      where: {
+        id: groupId,
+        moderatorId: userId,
+      },
+    });
+
+    return !!isModerator;
+  } catch {
+    return false;
   }
 };
 
@@ -81,7 +100,7 @@ export const isUserAdminGroup = async ({
   userId: string;
 }): Promise<boolean> => {
   try {
-    const isAdmin = await prisma.groupUser.findFirst({
+    const isUserAdmin = await prisma.groupUser.findFirst({
       where: {
         groupId: groupId,
         userId: userId,
@@ -89,36 +108,71 @@ export const isUserAdminGroup = async ({
       },
     });
 
-    return isAdmin !== null;
+    const isModerator = await prisma.group.findFirst({
+      where: {
+        moderatorId: userId,
+      },
+    });
+
+    if (isModerator || isUserAdmin) return true;
+    return false;
   } catch {
     return false;
   }
 };
 
-export const fetchGroups = async ({
-  url,
+export const isUserIngroup = async ({
+  groupId,
+  userId,
 }: {
-  url: string;
-}): Promise<fetchGroupsResponse> => {
-  const response = await fetch(url, {
-    next: {
-      tags: ['groups'],
-      revalidate: 3600,
+  groupId: string;
+  userId: string;
+}): Promise<boolean> => {
+  try {
+    const isModerator = await isGroupModerator({
+      groupId,
+      userId,
+    });
+
+    const isUserIngroup = await getUserInGroup({
+      groupId,
+      userId,
+    });
+
+    if (isModerator || isUserIngroup) return true;
+    return false;
+  } catch {
+    return false;
+  }
+};
+
+export const getUserRole = async ({
+  groupId,
+  userId,
+}: {
+  groupId: string;
+  userId: string;
+}) => {
+  const userRole = await prisma.groupUser.findFirst({
+    where: {
+      groupId,
+      userId,
     },
-    headers: headers(),
+    select: {
+      role: true,
+    },
   });
 
-  if (!response.ok) {
-    return {
-      success: false,
-      data: null,
-      message:
-        'Une erreur est survenue lors de la récupération des données',
-    };
+  if (userRole) return userRole.role;
+
+  const userRoleIsModerator = await isGroupModerator({
+    groupId,
+    userId,
+  });
+
+  if (userRoleIsModerator) {
+    return 'moderator';
   }
 
-  return {
-    success: true,
-    data: await response.json(),
-  };
+  return null;
 };

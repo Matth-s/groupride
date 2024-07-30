@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { getUserInGroup } from '@/data/group';
 import prisma from '@/libs/prisma';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const joinGroup = async (groupId: string) => {
@@ -45,5 +46,6 @@ export const joinGroup = async (groupId: string) => {
     };
   }
 
+  revalidatePath(`/groupes/${groupId}/members`);
   redirect(`/groupes/${groupId}`);
 };

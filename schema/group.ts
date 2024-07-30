@@ -9,6 +9,8 @@ export const sportPraticed = z.enum([
   'mountain_biking',
 ]);
 
+export const userRole = z.enum(['member', 'admin', 'moderator']);
+
 export const groupType = z.enum(['close', 'open', 'invitation']);
 
 export const newGroupSchema = z
@@ -35,3 +37,14 @@ export const newGroupSchema = z
       path: ['location'],
     }
   );
+
+export const checkParamsUserGroupKick = z.object({
+  groupId: z.string().min(1),
+  userIdToKick: z.string().min(1),
+});
+
+export const checkParamsUserGroupUpdate = z.object({
+  groupId: z.string().min(1),
+  userIdToUpdate: z.string().min(1),
+  newRole: userRole,
+});
