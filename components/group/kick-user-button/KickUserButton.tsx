@@ -18,21 +18,19 @@ const KickUserButton = ({
 }: KickUserButtonProps) => {
   const dispatch = useAppDispatch();
 
+  function handleClick() {
+    dispatch(
+      openModalKickUser({
+        open: true,
+        userIdToKick,
+        groupId,
+        usernameToKick,
+      })
+    );
+  }
+
   return (
-    <Button
-      variant="contained"
-      color="error"
-      onClick={() =>
-        dispatch(
-          openModalKickUser({
-            open: true,
-            userIdToKick,
-            groupId,
-            usernameToKick,
-          })
-        )
-      }
-    >
+    <Button variant="contained" color="error" onClick={handleClick}>
       Exclure
     </Button>
   );

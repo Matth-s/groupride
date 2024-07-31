@@ -6,7 +6,7 @@ import {
   getKickUserData,
 } from '@/libs/redux/features/modal-slice';
 import { kickUser } from '@/actions/kick-user';
-import { toastError, toastSuccess } from '@/libs/toast';
+import { toastSuccess } from '@/libs/toast';
 
 import React, { useState, useTransition } from 'react';
 import Modal from '../Modal';
@@ -27,18 +27,19 @@ const KickUserModal = () => {
 
   if (!isOpen) return;
 
-  const handleCancel = () => {
+  function handleCancel() {
     dispatch(closeModal());
-  };
+  }
 
-  const handleDelete = () => {
+  function handleDelete() {
     startTransition(() => {
       kickUser({
         groupId,
         userIdToKick,
       }).then((res) => {
         if (res?.error) {
-          return setError(res.error);
+          setError(res.error);
+          return;
         }
 
         toastSuccess(
@@ -51,7 +52,7 @@ const KickUserModal = () => {
         handleCancel();
       });
     });
-  };
+  }
 
   return (
     <Modal>
@@ -66,14 +67,14 @@ const KickUserModal = () => {
             isPending={isPending}
             label="Annuler"
             variant="contained"
-            onClick={() => handleCancel()}
+            onClick={handleCancel}
           />
           <SubmitButton
             color="error"
             isPending={isPending}
             label="Exclure"
             variant="contained"
-            onClick={() => handleDelete()}
+            onClick={handleDelete}
           />
         </ActionButton>
 

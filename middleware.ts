@@ -12,7 +12,7 @@ const { auth } = NextAuth(authConfig);
 
 export default auth((req: NextRequest & { auth: Session | null }) => {
   const { nextUrl } = req;
-  const isAuthenticated = !!req.auth;
+  const isAuthenticated = Boolean(req.auth);
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);

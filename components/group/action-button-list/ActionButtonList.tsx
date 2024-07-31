@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getUserRole, isGroupModerator } from '@/data/group';
+import { getUserRole } from '@/data/group';
 import { GroupRole } from '@/interfaces/groups';
 import { Button } from '@mui/material';
 import { Session } from 'next-auth/types';

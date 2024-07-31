@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
 } from '@mui/material';
 import {
   UseFormRegister,
@@ -16,6 +17,7 @@ import {
 import { sportPraticedArray } from '@/constants/sports';
 import { z } from 'zod';
 import { newGroupSchema } from '@/schema/group';
+import { SportPracticed } from '@/interfaces/groups';
 
 type SelectSportsProps = {
   setValue: UseFormSetValue<z.infer<typeof newGroupSchema>>;

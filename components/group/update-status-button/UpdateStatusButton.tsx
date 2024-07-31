@@ -17,7 +17,7 @@ const UpdateStatusButton = ({
 }: UpdateStatusButtonProps) => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  function handleClick() {
     dispatch(
       openModalUpdateUser({
         open: true,
@@ -26,7 +26,7 @@ const UpdateStatusButton = ({
         usernameToUpdate,
       })
     );
-  };
+  }
 
   return (
     <Button variant="contained" color="primary" onClick={handleClick}>

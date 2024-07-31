@@ -48,7 +48,6 @@ export const createNewGroup = async (
     const groupSaved = await prisma.group.create({
       data: {
         ...validatedFields.data,
-        sportPraticed: sportPraticed,
         user: {
           connect: {
             id: session.user.id,

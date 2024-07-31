@@ -16,7 +16,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
-    async session({ session, token }) {
+    session({ session, token }) {
       if (token.sub && session) {
         session.user.id = token.sub;
       }
@@ -32,9 +32,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return true;
     },
 
-    authorized: async ({ auth }) => {
-      console.log(auth, 'autoriezd');
-      return !!auth;
+    authorized: ({ auth }) => {
+      return Boolean(auth);
     },
   },
   trustHost: true,

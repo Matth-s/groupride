@@ -47,7 +47,7 @@ const CardButton = async ({
     const userIsAlreadyInInvitationList =
       await getUserInInvitationList({
         groupId: id,
-        userId: userId,
+        userId,
       });
 
     return userIsAlreadyInInvitationList ? (

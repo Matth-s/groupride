@@ -65,7 +65,7 @@ export const getUserInGroup = async ({
       },
     });
 
-    return !!existingUserInGroup;
+    return Boolean(existingUserInGroup);
   } catch {
     return false;
   }
@@ -86,7 +86,7 @@ export const isGroupModerator = async ({
       },
     });
 
-    return !!isModerator;
+    return Boolean(isModerator);
   } catch {
     return false;
   }
@@ -102,8 +102,8 @@ export const isUserAdminGroup = async ({
   try {
     const isUserAdmin = await prisma.groupUser.findFirst({
       where: {
-        groupId: groupId,
-        userId: userId,
+        groupId,
+        userId,
         role: 'admin',
       },
     });

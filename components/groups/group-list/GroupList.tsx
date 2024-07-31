@@ -10,7 +10,7 @@ type GroupListProps = {
 
 const GroupList = async ({ url }: GroupListProps) => {
   const { success, data, message } = await fetchGroups({
-    url: url,
+    url,
   });
 
   if (!success || !data) {

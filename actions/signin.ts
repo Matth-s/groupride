@@ -62,7 +62,7 @@ export const signin = async (
     return {
       success: 'Vous êtes connectez',
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':

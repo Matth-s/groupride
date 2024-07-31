@@ -8,15 +8,15 @@ import { TextField } from '@mui/material';
 import React, { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { createNewGroup } from '@/actions/new-group';
 
 import LocationInput from '../location-input/LocationInput';
 import SelectSports from '../select-sports/SelectSports';
 import GroupType from '../group-type/GroupType';
+import SubmitButton from '@/ui/submit-button/SubmitButton';
+import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 
 import styles from './styles.module.scss';
-import SubmitButton from '@/ui/submit-button/SubmitButton';
-import { createNewGroup } from '@/actions/new-group';
-import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 
 const NewGroupForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -40,7 +40,7 @@ const NewGroupForm = () => {
     resolver: zodResolver(newGroupSchema),
   });
 
-  const handleFormSubmit = async (
+  const handleFormSubmit = (
     values: z.infer<typeof newGroupSchema>
   ) => {
     startTransition(() =>

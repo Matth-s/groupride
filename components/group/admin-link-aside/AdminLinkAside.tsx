@@ -20,7 +20,7 @@ const AdminLinkAside = async ({ groupId }: AdminLinkAsideProps) => {
 
   const isAdmin = await isUserAdminGroup({
     groupId,
-    userId: userId,
+    userId,
   });
 
   if (!isAdmin) return null;
