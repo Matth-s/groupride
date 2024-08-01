@@ -153,26 +153,30 @@ export const getUserRole = async ({
   groupId: string;
   userId: string;
 }) => {
-  const userRole = await prisma.groupUser.findFirst({
-    where: {
+  try {
+    const userRole = await prisma.groupUser.findFirst({
+      where: {
+        groupId,
+        userId,
+      },
+      select: {
+        role: true,
+      },
+    });
+
+    if (userRole) return userRole.role;
+
+    const userRoleIsModerator = await isGroupModerator({
       groupId,
       userId,
-    },
-    select: {
-      role: true,
-    },
-  });
+    });
 
-  if (userRole) return userRole.role;
+    if (userRoleIsModerator) {
+      return 'moderator';
+    }
 
-  const userRoleIsModerator = await isGroupModerator({
-    groupId,
-    userId,
-  });
-
-  if (userRoleIsModerator) {
-    return 'moderator';
+    return null;
+  } catch {
+    return null;
   }
-
-  return null;
 };

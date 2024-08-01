@@ -4,7 +4,6 @@ import {
 } from '@/types/groups';
 import { apiPrefix } from '@/routes';
 import { headers } from 'next/headers';
-import { unstable_cache } from 'next/cache';
 
 export const fetchGroups = async ({
   url,
@@ -38,7 +37,7 @@ export const fetchGroupMembers = async (
   groupId: string
 ): Promise<fetchMembersResponse> => {
   const response = await fetch(
-    `${apiPrefix}/groupes/membres?id=${groupId}`,
+    `${apiPrefix}/groupes/${groupId}/membres`,
     {
       next: {
         tags: ['members'],

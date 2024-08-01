@@ -10,14 +10,13 @@ import Link from 'next/link';
 import React from 'react';
 import AskToJoinForm from '../ask-to-join-form/AskToJoinForm';
 import DeleteJoinAskForm from '../delete-join-ask-form/DeleteJoinAskForm';
-import JoinGroupForm from '../join-group-form/JoinGroupForm';
+import JoinGroupButton from '../join-group-button/JoinGroupButton';
 
 type CardButtonProps = {
   moderatorId: string;
   groupType: GroupType;
   id: string;
 };
-
 const CardButton = async ({
   moderatorId,
   groupType,
@@ -43,6 +42,18 @@ const CardButton = async ({
     );
   }
 
+  const userIsInGroup = await getUserInGroup({
+    groupId: id,
+    userId,
+  });
+
+  if (userIsInGroup)
+    return (
+      <Link href={`/groupes/${id}`}>
+        <Button variant="outlined">Afficher</Button>
+      </Link>
+    );
+
   if (groupType === 'invitation') {
     const userIsAlreadyInInvitationList =
       await getUserInInvitationList({
@@ -61,18 +72,7 @@ const CardButton = async ({
     return <Button variant="outlined">Fermé</Button>;
   }
 
-  const userIsInGroup = await getUserInGroup({
-    groupId: id,
-    userId,
-  });
-
-  return userIsInGroup ? (
-    <Link href={`groupes/${id}`}>
-      <Button variant="outlined">Afficher</Button>
-    </Link>
-  ) : (
-    <JoinGroupForm groupId={id} />
-  );
+  return <JoinGroupButton groupId={id} />;
 };
 
 export default CardButton;

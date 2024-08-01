@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Flip, ToastContainer } from 'react-toastify';
 import StoreProvider from '@/components/StoreProvider';
+
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.scss';
+import { SessionProvider } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <StoreProvider>{children}</StoreProvider>
+        <SessionProvider>
+          <StoreProvider>{children}</StoreProvider>
+        </SessionProvider>
 
         <ToastContainer
           position="bottom-center"

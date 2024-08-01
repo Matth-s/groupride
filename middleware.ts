@@ -19,6 +19,7 @@ export default auth((req: NextRequest & { auth: Session | null }) => {
   const isAuthRoute = AUTH_ROUTES.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
+    console.log('true');
     return NextResponse.next();
   }
 
@@ -31,6 +32,17 @@ export default auth((req: NextRequest & { auth: Session | null }) => {
   }
 
   if (!isAuthenticated && !isPublicRoute) {
+    if (nextUrl.pathname.includes('api')) {
+      return NextResponse.json(
+        {
+          message: 'Accès refusé',
+        },
+        {
+          status: 401,
+        }
+      );
+    }
+
     return Response.redirect(
       new URL('/authentification/connexion', nextUrl)
     );
@@ -40,5 +52,8 @@ export default auth((req: NextRequest & { auth: Session | null }) => {
 });
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+  ],
 };

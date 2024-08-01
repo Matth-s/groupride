@@ -8,7 +8,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-export const updateStatusUsetGroup = async (
+export const updateRoleUserGroup = async (
   values: z.infer<typeof checkParamsUserGroupUpdate>
 ) => {
   const session = await auth();
@@ -74,17 +74,21 @@ export const updateStatusUsetGroup = async (
             id: groupId,
           },
           data: {
-            user: {
-              update: {
-                id: userIdToUpdate,
-              },
-            },
+            moderatorId: userIdToUpdate,
           },
         }),
         prisma.groupUser.create({
           data: {
             groupId,
             userId: session.user.id,
+          },
+        }),
+        prisma.groupUser.delete({
+          where: {
+            userId_groupId: {
+              groupId,
+              userId: userIdToUpdate,
+            },
           },
         }),
       ]);
@@ -101,14 +105,15 @@ export const updateStatusUsetGroup = async (
         },
       });
     }
-  } catch {
+  } catch (error) {
     return {
-      error: 'Une erreur est survenue veuillez réessayer',
+      error:
+        'Une erreur est survenue veuillez réessayer ultérieurement',
     };
   }
 
   revalidatePath(`/groupes/${groupId}/membres`);
-
+  revalidatePath(`/groupes/${groupId}/`);
   revalidateTag('groups');
   revalidateTag('members');
 

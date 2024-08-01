@@ -41,3 +41,28 @@ export const getUserByUsername = async (username: string) => {
     return null;
   }
 };
+
+export const getUserImageUsernameById = async (
+  id: string
+): Promise<{
+  image: string | null;
+  username: string;
+  id: string;
+} | null> => {
+  try {
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        image: true,
+        username: true,
+        id: true,
+      },
+    });
+
+    return existingUser;
+  } catch {
+    return null;
+  }
+};

@@ -27,11 +27,11 @@ const KickUserModal = () => {
 
   if (!isOpen) return;
 
-  function handleCancel() {
+  const handleCancel = () => {
     dispatch(closeModal());
-  }
+  };
 
-  function handleDelete() {
+  const handleDelete = () => {
     startTransition(() => {
       kickUser({
         groupId,
@@ -52,16 +52,14 @@ const KickUserModal = () => {
         handleCancel();
       });
     });
-  }
+  };
 
   return (
-    <Modal>
+    <Modal
+      title={`Êtes vous sur de vouloir expulser l'utilisateur
+           "${usernameToKick}"  ?`}
+    >
       <div>
-        <h2>
-          Êtes vous sur de vouloir expulser l&apos; utilisateur &quot;
-          {usernameToKick}&quot; ?
-        </h2>
-
         <ActionButton>
           <SubmitButton
             isPending={isPending}

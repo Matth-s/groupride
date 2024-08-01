@@ -1,13 +1,13 @@
 import { auth } from '@/auth';
 import { getUserRole } from '@/data/group';
 import { GroupRole } from '@/interfaces/groups';
-import { Button } from '@mui/material';
 import { Session } from 'next-auth/types';
+
 import React from 'react';
 import KickUserButton from '../kick-user-button/KickUserButton';
+import UpdateStatusButton from '../update-status-button/UpdateStatusButton';
 
 import styles from './styles.module.scss';
-import UpdateStatusButton from '../update-status-button/UpdateStatusButton';
 
 type ActionButtonListProps = {
   groupId: string;
@@ -22,7 +22,10 @@ const ActionButtonList = async ({
   memberId,
   memberName,
 }: ActionButtonListProps) => {
-  const session = (await auth()) as Session;
+  const session = await auth();
+
+  if (!session?.user) return;
+
   const userId = session.user.id;
 
   let content;
@@ -40,6 +43,8 @@ const ActionButtonList = async ({
             userIdToUpdate={memberId}
             groupId={groupId}
             usernameToUpdate={memberName}
+            memberRole={memberRole}
+            currentUserRole={'moderator'}
           />
         </li>
         <li>
@@ -58,11 +63,24 @@ const ActionButtonList = async ({
       return null;
     } else if (memberRole === 'member') {
       content = (
-        <li>
-          <Button variant="contained" color="error">
-            Exclure
-          </Button>
-        </li>
+        <>
+          <li>
+            <UpdateStatusButton
+              userIdToUpdate={memberId}
+              groupId={groupId}
+              usernameToUpdate={memberName}
+              memberRole={memberRole}
+              currentUserRole={'admin'}
+            />
+          </li>
+          <li>
+            <KickUserButton
+              userIdToKick={memberId}
+              groupId={groupId}
+              usernameToKick={memberName}
+            />
+          </li>
+        </>
       );
     }
 

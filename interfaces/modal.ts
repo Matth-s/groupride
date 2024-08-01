@@ -1,3 +1,5 @@
+import { GroupRole, NewGroupRole } from './groups';
+
 export interface modalKickUserInterface {
   open: boolean;
   userIdToKick: string;
@@ -10,4 +12,11 @@ export interface modalUpdateUserInterface {
   userIdToUpdate: string;
   groupId: string;
   usernameToUpdate: string;
+  memberRole: GroupRole | NewGroupRole;
+  currentUserRole: 'admin' | 'moderator';
+}
+
+export interface modalLeaveGroup {
+  open: boolean;
+  groupId: string;
 }

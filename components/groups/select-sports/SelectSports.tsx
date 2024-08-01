@@ -3,21 +3,14 @@
 import React from 'react';
 import {
   FormControl,
-  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
 } from '@mui/material';
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { sportPraticedArray } from '@/constants/sports';
 import { z } from 'zod';
 import { newGroupSchema } from '@/schema/group';
-import { SportPracticed } from '@/interfaces/groups';
 
 type SelectSportsProps = {
   setValue: UseFormSetValue<z.infer<typeof newGroupSchema>>;

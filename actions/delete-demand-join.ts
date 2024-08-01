@@ -3,7 +3,7 @@
 import { auth } from '@/auth';
 import { getUserInInvitationList } from '@/data/group';
 import prisma from '@/libs/prisma';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const deleteDemandGroup = async (groupId: string) => {
@@ -49,5 +49,7 @@ export const deleteDemandGroup = async (groupId: string) => {
     };
   }
 
+  revalidatePath(`/groupes/${groupId}/demandes`);
+  revalidateTag('join-demand');
   redirect('/');
 };

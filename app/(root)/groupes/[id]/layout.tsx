@@ -15,6 +15,7 @@ import styles from './styles.module.scss';
 import ClientOnly from '@/components/ClientOnly';
 import KickUserModal from '@/components/modals/kick-user-modal/KickUserModal';
 import UpdateUserModal from '@/components/modals/update-user-modal/UpdateUserModal';
+import LeaveGroupModal from '@/components/modals/leave-group-modal/LeaveGroupModal';
 
 type GroupLayoutProps = {
   children: React.ReactNode;
@@ -53,7 +54,11 @@ const GroupLayout = async ({
 
   return (
     <div className={styles.GroupLayout}>
-      <GroupHeader groupName={existingGroup.name} />
+      <GroupHeader
+        groupName={existingGroup.name}
+        isModerator={isModerator}
+        groupId={params.id}
+      />
       <div className={styles.Main}>
         <Aside id={params.id} />
         {children}
@@ -62,6 +67,7 @@ const GroupLayout = async ({
       <ClientOnly>
         <KickUserModal />
         <UpdateUserModal />
+        <LeaveGroupModal />
       </ClientOnly>
     </div>
   );

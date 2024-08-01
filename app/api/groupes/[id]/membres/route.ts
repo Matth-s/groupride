@@ -5,7 +5,10 @@ import { isUserIngroup } from '@/data/group';
 import prisma from '@/libs/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async (request: NextRequest) => {
+export const GET = async (
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const session = await auth();
 
   if (!session?.user.id) {
@@ -18,20 +21,12 @@ export const GET = async (request: NextRequest) => {
     );
   }
 
-  const searchParams = request.nextUrl.searchParams;
-  const searchParamsId = searchParams.get('id');
+  const groupId = params.id;
 
-  if (!searchParamsId) {
-    return NextResponse.json(
-      {
-        message: "L'id du groupe n'est pas présent dans la requête",
-      },
-      { status: 404 }
-    );
-  }
+  console.log;
 
   const userIsInGroup = await isUserIngroup({
-    groupId: searchParamsId,
+    groupId,
     userId: session.user.id,
   });
 
@@ -46,11 +41,10 @@ export const GET = async (request: NextRequest) => {
 
   try {
     const members = await prisma.groupUser.findMany({
-      where: { groupId: searchParamsId },
+      where: { groupId },
     });
     return NextResponse.json(members);
   } catch (error) {
-    console.error('Error fetching group members:', error);
     return NextResponse.json(
       { message: 'Une erreur est survenue' },
       { status: 500 }

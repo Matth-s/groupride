@@ -2,8 +2,10 @@ import { groupInterface } from '@/interfaces/groups';
 import React, { Suspense } from 'react';
 import CardButton from '../card-button/CardButton';
 
-import styles from './styles.module.scss';
 import ClientOnly from '@/components/ClientOnly';
+import ButtonSkeleton from '@/ui/skeletons/button-skeleton/ButtonSkeleton';
+
+import styles from './styles.module.scss';
 
 type GroupCardProps = {
   group: groupInterface;
@@ -40,7 +42,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
       <p>Createur du groupe: {}</p>
       <p>Crée le : {JSON.stringify(createdAt)}</p>
 
-      <Suspense fallback={<p>Button fallback</p>}>
+      <Suspense fallback={<ButtonSkeleton />}>
         <ClientOnly>
           <CardButton
             moderatorId={moderatorId}

@@ -1,15 +1,17 @@
 'use client';
 
+import { GroupRole } from '@/interfaces/groups';
 import {
   modalKickUserInterface,
+  modalLeaveGroup,
   modalUpdateUserInterface,
 } from '@/interfaces/modal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface initialState {
-  modalKickUser: modalKickUserInterface;
-  modalUpdateUser: modalUpdateUserInterface;
-}
+const modalLeaveGroupDefault: modalLeaveGroup = {
+  open: false,
+  groupId: '',
+};
 
 const modalKickUserDefault: modalKickUserInterface = {
   open: false,
@@ -23,21 +25,20 @@ const modalUpdateUserDefault: modalUpdateUserInterface = {
   userIdToUpdate: '',
   usernameToUpdate: '',
   groupId: '',
+  memberRole: GroupRole.member,
+  currentUserRole: 'admin',
 };
 
+interface initialState {
+  modalKickUser: modalKickUserInterface;
+  modalUpdateUser: modalUpdateUserInterface;
+  modalLeaveGroup: modalLeaveGroup;
+}
+
 const initialState: initialState = {
-  modalKickUser: {
-    open: false,
-    userIdToKick: '',
-    groupId: '',
-    usernameToKick: '',
-  },
-  modalUpdateUser: {
-    open: false,
-    userIdToUpdate: '',
-    groupId: '',
-    usernameToUpdate: '',
-  },
+  modalKickUser: modalKickUserDefault,
+  modalUpdateUser: modalUpdateUserDefault,
+  modalLeaveGroup: modalLeaveGroupDefault,
 };
 
 export const modalSlice = createSlice({
@@ -56,9 +57,16 @@ export const modalSlice = createSlice({
     ) => {
       state.modalUpdateUser = action.payload;
     },
+    openModalLeaveGroup: (
+      state,
+      action: PayloadAction<modalLeaveGroup>
+    ) => {
+      state.modalLeaveGroup = action.payload;
+    },
     closeModal: (state) => {
       state.modalKickUser = modalKickUserDefault;
       state.modalUpdateUser = modalUpdateUserDefault;
+      state.modalLeaveGroup = modalLeaveGroupDefault;
     },
   },
 
@@ -66,16 +74,22 @@ export const modalSlice = createSlice({
     openModalKickUserIsOpen: (state) => state.modalKickUser?.open,
     getKickUserData: (state) => state.modalKickUser,
     getUpdateUserData: (state) => state.modalUpdateUser,
+    getLeaveGroupData: (state) => state.modalLeaveGroup,
   },
 });
 
-export const { openModalKickUser, closeModal, openModalUpdateUser } =
-  modalSlice.actions;
+export const {
+  openModalKickUser,
+  closeModal,
+  openModalUpdateUser,
+  openModalLeaveGroup,
+} = modalSlice.actions;
 
 export const {
   openModalKickUserIsOpen,
   getKickUserData,
   getUpdateUserData,
+  getLeaveGroupData,
 } = modalSlice.selectors;
 
 export default modalSlice.reducer;

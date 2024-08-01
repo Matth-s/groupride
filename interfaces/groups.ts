@@ -18,6 +18,10 @@ export enum GroupRole {
   admin = 'admin',
 }
 
+export enum NewGroupRole {
+  moderator = 'moderator',
+}
+
 export interface InvitationList {
   userId: string;
   groupId: string;

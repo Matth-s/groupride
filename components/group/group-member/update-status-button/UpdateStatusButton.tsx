@@ -1,5 +1,6 @@
 'use client';
 
+import { GroupRole, NewGroupRole } from '@/interfaces/groups';
 import { openModalUpdateUser } from '@/libs/redux/features/modal-slice';
 import { useAppDispatch } from '@/libs/redux/hooks';
 import { Button } from '@mui/material';
@@ -8,12 +9,16 @@ type UpdateStatusButtonProps = {
   userIdToUpdate: string;
   groupId: string;
   usernameToUpdate: string;
+  memberRole: GroupRole | NewGroupRole;
+  currentUserRole: 'admin' | 'moderator';
 };
 
 const UpdateStatusButton = ({
   userIdToUpdate,
   groupId,
   usernameToUpdate,
+  memberRole,
+  currentUserRole,
 }: UpdateStatusButtonProps) => {
   const dispatch = useAppDispatch();
 
@@ -24,6 +29,8 @@ const UpdateStatusButton = ({
         userIdToUpdate,
         groupId,
         usernameToUpdate,
+        memberRole,
+        currentUserRole,
       })
     );
   }

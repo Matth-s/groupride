@@ -4,9 +4,10 @@ import React from 'react';
 type SubmitButtonProps = {
   isPending: boolean;
   label: string;
-  color?: 'error';
+  color?: 'error' | 'secondary';
   variant: 'outlined' | 'contained';
   onClick?: () => void;
+  fullWidth?: boolean;
 };
 
 const SubmitButton = ({
@@ -15,9 +16,11 @@ const SubmitButton = ({
   color,
   variant,
   onClick,
+  fullWidth,
 }: SubmitButtonProps) => {
   return (
     <LoadingButton
+      fullWidth={fullWidth}
       loading={isPending}
       variant={variant}
       type="submit"

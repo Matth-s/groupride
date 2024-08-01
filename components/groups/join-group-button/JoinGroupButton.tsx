@@ -5,16 +5,14 @@ import { useTransition } from 'react';
 import SubmitButton from '@/ui/submit-button/SubmitButton';
 import { toastError, toastSuccess } from '@/libs/toast';
 
-type JoinGroupFormProps = {
+type JoinGroupButtonProps = {
   groupId: string;
 };
 
-const JoinGroupForm = ({ groupId }: JoinGroupFormProps) => {
+const JoinGroupButton = ({ groupId }: JoinGroupButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleFormSubmit = () => {
     startTransition(() => {
       joinGroup(groupId).then((res) => {
         if (res?.error) {
@@ -28,14 +26,13 @@ const JoinGroupForm = ({ groupId }: JoinGroupFormProps) => {
   };
 
   return (
-    <form onSubmit={(e) => handleFormSubmit(e)}>
-      <SubmitButton
-        isPending={isPending}
-        label="Rejoindre"
-        variant="outlined"
-      />
-    </form>
+    <SubmitButton
+      onClick={handleFormSubmit}
+      isPending={isPending}
+      label="Rejoindre"
+      variant="outlined"
+    />
   );
 };
 
-export default JoinGroupForm;
+export default JoinGroupButton;

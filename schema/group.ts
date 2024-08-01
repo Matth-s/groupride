@@ -48,3 +48,14 @@ export const checkParamsUserGroupUpdate = z.object({
   userIdToUpdate: z.string().min(1),
   newRole: userRole,
 });
+
+export const updateUserSchema = z.object({
+  groupId: z.string().min(1),
+  userIdToUpdate: z.string().min(1),
+  newRole: userRole,
+});
+
+export const memberJoinGroupParams = z.object({
+  userId: z.string().min(1),
+  groupId: z.string().min(1),
+});

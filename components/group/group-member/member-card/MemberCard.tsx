@@ -1,11 +1,11 @@
 import { UsersInterface } from '@/interfaces/groups';
-import prisma from '@/libs/prisma';
 import React, { Suspense } from 'react';
-import ButtonAction from '../action-button-list/ActionButtonList';
 import { formatDate } from '@/utils/date';
+import { getUserImageUsernameById } from '@/data/user';
+
+import ButtonActionList from '../action-button-list/ActionButtonList';
 import ClientOnly from '@/components/ClientOnly';
-import Image from 'next/image';
-import Link from 'next/link';
+import UserCardGroup from '../../user-card-group/UserCardGroup';
 
 import styles from './styles.module.scss';
 
@@ -15,32 +15,14 @@ type MemberCardProps = {
 };
 
 const MemberCard = async ({ member, groupId }: MemberCardProps) => {
-  const user = await prisma.user.findFirst({
-    where: {
-      id: member.userId,
-    },
-    select: {
-      image: true,
-      username: true,
-    },
-  });
+  const user = await getUserImageUsernameById(member.userId);
 
   if (!user) return;
 
   return (
     <div className={styles.MemberCard}>
       <div className={styles.header}>
-        <Link href={`/utilisateur/${member.userId}`}>
-          <Image
-            src={user.image ? user.image : '/no-image-user.svg'}
-            width={40}
-            height={40}
-            alt={user.username}
-            decoding="async"
-          />
-
-          <p>{user.username}</p>
-        </Link>
+        <UserCardGroup user={user} />
       </div>
 
       <ul className={styles.info}>
@@ -58,7 +40,7 @@ const MemberCard = async ({ member, groupId }: MemberCardProps) => {
 
       <ClientOnly>
         <Suspense fallback={''}>
-          <ButtonAction
+          <ButtonActionList
             groupId={groupId}
             memberRole={member.role}
             memberId={member.userId}

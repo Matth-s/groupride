@@ -4,6 +4,7 @@ import { getUpdateUserData } from '@/libs/redux/features/modal-slice';
 import { useAppSelector } from '@/libs/redux/hooks';
 import React from 'react';
 import Modal from '../Modal';
+import UpdateUserRoleForm from '@/components/group/group-member/update-user-role-form/UpdateUserRoleForm';
 
 const UpdateUserModal = () => {
   const {
@@ -11,13 +12,20 @@ const UpdateUserModal = () => {
     userIdToUpdate,
     usernameToUpdate,
     groupId,
+    memberRole,
+    currentUserRole,
   } = useAppSelector(getUpdateUserData);
 
   if (!isOpen) return null;
 
   return (
-    <Modal>
-      <div>update user</div>
+    <Modal title={`Modifier le status de ${usernameToUpdate}`}>
+      <UpdateUserRoleForm
+        memberRole={memberRole}
+        groupId={groupId}
+        userIdToUpdate={userIdToUpdate}
+        currentUserRole={currentUserRole}
+      />
     </Modal>
   );
 };
