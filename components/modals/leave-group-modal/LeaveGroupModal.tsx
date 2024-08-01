@@ -20,7 +20,7 @@ const LeaveGroupModal = () => {
 
   if (!isOpen) return;
 
-  const handleLeaveGroup = () => {
+  const handleLeaveGroup = (): void => {
     startTransition(() => {
       leaveGroup(groupId).then((res) => {
         if (res?.error) {

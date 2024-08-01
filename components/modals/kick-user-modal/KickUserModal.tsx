@@ -31,7 +31,7 @@ const KickUserModal = () => {
     dispatch(closeModal());
   };
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     startTransition(() => {
       kickUser({
         groupId,

@@ -14,12 +14,13 @@ import {
   Select,
 } from '@mui/material';
 
-import styles from './styles.module.scss';
 import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 import { updateRoleUserGroup } from '@/actions/update-role-user-group';
 import { toastSuccess } from '@/libs/toast';
 import { useAppDispatch } from '@/libs/redux/hooks';
 import { closeModal } from '@/libs/redux/features/modal-slice';
+
+import styles from './styles.module.scss';
 
 type UpdateUserRoleFormProps = {
   userIdToUpdate: string;
@@ -53,7 +54,7 @@ const UpdateUserRoleForm = ({
 
   const handleFormSubmit = (
     values: z.infer<typeof updateUserSchema>
-  ) => {
+  ): void => {
     setError(undefined);
     startTransition(() => {
       updateRoleUserGroup(values).then((res) => {

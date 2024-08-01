@@ -18,7 +18,8 @@ const ActionButtonJoinList = ({
   groupId,
 }: ActionButtonJoinListProps) => {
   const [isPending, startTransition] = useTransition();
-  const handleAccept = () => {
+
+  const handleAccept = (): void => {
     startTransition(() => {
       acceptUserInGroup({ groupId, userId }).then((res) => {
         if (res?.error) {
@@ -30,7 +31,7 @@ const ActionButtonJoinList = ({
     });
   };
 
-  const handleRefuse = () => {
+  const handleRefuse = (): void => {
     startTransition(() => {
       refuseUserGroup({ groupId, userId }).then((res) => {
         console.log(res?.error);
