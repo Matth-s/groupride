@@ -12,19 +12,22 @@ datasource db {
 }
 
 model User {
-  id            String           @id @default(cuid())
+  id            String    @id @default(cuid())
   firstName     String
   lastName      String
-  username      String           @unique
+  username      String    @unique
   description   String?
   email         String
   password      String
   image         String?
   emailVerified DateTime?
   location      String?
-  group         Group[]
-  groups        GroupUser[]
-  invitations   InvitationList[]
+
+  group            Group[]
+  groups           GroupUser[]
+  invitations      InvitationList[]
+  groupMessageSeen GroupMessageSeen[]
+  groupMessage     GroupMessage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -42,20 +45,53 @@ model verificationToken {
 }
 
 model Group {
-  id             String           @id @default(cuid())
-  name           String           @unique
+  id             String             @id @default(cuid())
+  name           String             @unique
   description    String?
   location       String?
   postalCode     Int[]
   image          String?
   moderatorId    String
-  groupType      GroupType        @default(open)
-  sportPraticed  SportPracticed[] @default([])
-  createdAt      DateTime         @default(now())
+  groupType      GroupType          @default(open)
+  sportPraticed  SportPracticed[]   @default([])
+  createdAt      DateTime           @default(now())
   users          GroupUser[]
   invitationList InvitationList[]
+  conversation   GroupConversation?
 
   user User @relation(fields: [moderatorId], references: [id])
+}
+
+model GroupConversation {
+  id            String         @id @default(cuid())
+  groupId       String         @unique
+  lastMessageAt DateTime       @default(now())
+  messages      GroupMessage[]
+
+  group Group? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model GroupMessage {
+  id             String   @id @default(cuid())
+  message        String
+  createdAt      DateTime @default(now())
+  conversationId String
+  seensIds       String[]
+  userId         String
+
+  user         User               @relation(fields: [userId], references: [id])
+  seen         GroupMessageSeen[]
+  conversation GroupConversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model GroupMessageSeen {
+  userId    String
+  messageId String
+
+  user    User         @relation(fields: [userId], references: [id])
+  message GroupMessage @relation(fields: [messageId], references: [id])
+
+  @@id([userId, messageId])
 }
 
 model InvitationList {
@@ -69,12 +105,13 @@ model InvitationList {
 }
 
 model GroupUser {
-  userId   String
+  userId   String   @unique
   groupId  String
   joinedAt DateTime @default(now())
   role     Role     @default(member)
-  user     User     @relation(fields: [userId], references: [id])
-  group    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  user  User  @relation(fields: [userId], references: [id])
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 
   @@id([userId, groupId])
 }

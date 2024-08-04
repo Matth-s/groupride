@@ -65,7 +65,13 @@ export const getUserInGroup = async ({
       },
     });
 
-    return Boolean(existingUserInGroup);
+    const isModerator = await prisma.group.findFirst({
+      where: { id: groupId, moderatorId: userId },
+    });
+
+    if (existingUserInGroup || isModerator) return true;
+
+    return false;
   } catch {
     return false;
   }

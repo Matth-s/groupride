@@ -5,3 +5,5 @@ export const formatDate = (date: Date) => {
 
   return `${day}/${month}/${year}`;
 };
+
+export const formatDateMessage = (date: Date) => {};

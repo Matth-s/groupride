@@ -5,5 +5,10 @@
   .Main {
     display: flex;
     gap: 40px;
+    border: 1px solid red;
+  }
+
+  .RightPart {
+    width: 100%;
   }
 }

@@ -1,0 +1,9 @@
+.GroupMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-height: 75vh;
+  min-height: 75vh;
+  overflow-y: scroll;
+}

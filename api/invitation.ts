@@ -26,7 +26,6 @@ export const fetchInvitationGroup = async (
       success: true,
     };
   } catch (error: any) {
-    console.log(JSON.stringify(error.message));
     return {
       data: null,
       message: error.message,

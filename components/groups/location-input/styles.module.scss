@@ -1,6 +1,10 @@
 .LocationInput {
   ul {
     width: 100%;
+    background-color: rgb(221, 219, 219);
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 5px;
   }
 
   li {
@@ -9,9 +13,6 @@
     justify-content: space-between;
     padding: 0 10px;
     height: 56px;
-    border-right: 1px solid lightgray;
-    border-left: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
     cursor: pointer;
 
     &:hover {
@@ -20,10 +21,8 @@
     }
   }
 
-  li:first-child {
-    border-top: 1px solid lightgray;
-  }
-  li:first-child {
-    border-bottom: 1px solid lightgray;
+  button {
+    width: 24px !important;
+    height: 24px !important;
   }
 }

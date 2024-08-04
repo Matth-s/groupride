@@ -32,7 +32,7 @@ const KickUserModal = () => {
   };
 
   const handleDelete = (): void => {
-    startTransition(() => {
+    startTransition((): void => {
       kickUser({
         groupId,
         userIdToKick,

@@ -1,24 +1,32 @@
 'use client';
 
-import { TextField } from '@mui/material';
-import React, { useState } from 'react';
+import { Button, InputAdornment, TextField } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { newGroupSchema } from '@/schema/group';
 import { z } from 'zod';
 import { resultCityInterface } from '@/interfaces/location';
+
+import PlaceIcon from '@mui/icons-material/Place';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
 
 import styles from './styles.module.scss';
 
 type LocationInputProps = {
   register: UseFormRegister<z.infer<typeof newGroupSchema>>;
   setValue: UseFormSetValue<z.infer<typeof newGroupSchema>>;
+  value: string | undefined;
 };
 
 const LocationInput = ({
   register,
   setValue,
+  value,
 }: LocationInputProps) => {
   const [result, setResult] = useState<resultCityInterface[]>([]);
+  const [openResult, setOpenResult] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = async (name: string) => {
     const result = await fetch(
@@ -28,28 +36,71 @@ const LocationInput = ({
     setResult(result);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setOpenResult(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef]);
+
   return (
-    <div className={styles.LocationInput}>
+    <div className={styles.LocationInput} ref={wrapperRef}>
       <TextField
         id="location"
         label="Localisation du groupe"
         {...register('location')}
+        onClick={() => handleSearch(value ?? '')}
         onChange={(e) => {
           setTimeout(() => {
             handleSearch(e.target.value);
           }, 300);
+          setValue('location', e.target.value);
+        }}
+        onFocus={() => setOpenResult(true)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <PlaceIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              {value ? (
+                <Button
+                  onClick={() => {
+                    setValue('location', undefined);
+                    setValue('postalCode', undefined);
+                    setOpenResult(false);
+                    setResult([]);
+                  }}
+                >
+                  <ClearIcon />
+                </Button>
+              ) : (
+                <ArrowDropDownTwoToneIcon />
+              )}
+            </InputAdornment>
+          ),
         }}
       />
 
-      {result.length > 0 ? (
+      {openResult && result.length > 0 ? (
         <ul>
           {result.map((item, index: number) => (
             <li
               key={index}
-              onClick={() => {
+              onMouseDown={() => {
                 setValue('location', item.nom);
                 setValue('postalCode', item.codesPostaux);
-                setResult([]);
+                setOpenResult(false);
               }}
             >
               <span>{item.nom}</span>

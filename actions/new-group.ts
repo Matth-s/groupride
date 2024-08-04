@@ -7,12 +7,13 @@ import { newGroupSchema } from '@/schema/group';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { createId } from '@paralleldrive/cuid2';
 
 export const createNewGroup = async (
   values: z.infer<typeof newGroupSchema>
 ) => {
   const session = await auth();
-  let id: string;
+  const id = createId();
 
   if (!session?.user.id) {
     return {
@@ -45,25 +46,26 @@ export const createNewGroup = async (
   }
 
   try {
-    const groupSaved = await prisma.group.create({
+    await prisma.group.create({
       data: {
+        id,
         ...validatedFields.data,
         user: {
           connect: {
             id: session.user.id,
           },
         },
+        conversation: {
+          create: {},
+        },
       },
     });
-
-    id = groupSaved.id;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       error: 'Une erreur est survenue',
     };
   }
 
   revalidateTag('groups');
-  redirect(`/mes-groupes/${id}`);
+  redirect(`/groupes/${id}`);
 };

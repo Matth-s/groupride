@@ -23,7 +23,7 @@ const LeaveGroupButton = ({ groupId }: LeaveGroupButtonProps) => {
 
   return (
     <Button onClick={handleClick} color="error">
-      Quitter le groupe
+      Quitter
     </Button>
   );
 };

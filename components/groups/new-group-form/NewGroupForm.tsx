@@ -66,7 +66,9 @@ const NewGroupForm = () => {
 
         <div>
           <TextField
-            type="mutiline"
+            type="text"
+            multiline
+            rows={4}
             id="description"
             label="Description"
             {...register('description')}
@@ -75,7 +77,11 @@ const NewGroupForm = () => {
         </div>
 
         <div>
-          <LocationInput register={register} setValue={setValue} />
+          <LocationInput
+            register={register}
+            setValue={setValue}
+            value={watch('location')}
+          />
           <FormFieldError message={errors.location?.message} />
           <FormFieldError message={errors.postalCode?.message} />
         </div>

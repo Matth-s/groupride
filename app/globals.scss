@@ -10,3 +10,34 @@
 .MuiFormControl-root {
   width: 100%;
 }
+
+:root {
+  --background: 208 49.4% 2.48%;
+  --foreground: 208 7.6% 96.55%;
+
+  --muted: 208 38% 9.3%;
+  --muted-foreground: 208 7.6% 53.1%;
+
+  --popover: 208 47.519999999999996% 15.81%;
+  --popover-foreground: 208 7.6% 96.55%;
+
+  --card: 208 47.519999999999996% 15.81%;
+  --card-foreground: 208 7.6% 96.55%;
+
+  --border: 208 38% 9.3%;
+  --input: 208 38% 9.3%;
+
+  --primary: 208 76% 31%;
+  --primary-foreground: 208 7.6% 96.55%;
+
+  --secondary: 208 38% 9.3%;
+  --secondary-foreground: 208 7.6% 96.55%;
+
+  --accent: 208 38% 9.3%;
+  --accent-foreground: 208 7.6% 96.55%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 208 7.6% 96.55%;
+
+  --ring: 208 76% 31%;
+}

@@ -1,9 +1,5 @@
 export const groupTypeArray = [
   {
-    value: 'close',
-    name: 'Fermé',
-  },
-  {
     value: 'open',
     name: 'Ouvert',
   },
@@ -11,9 +7,17 @@ export const groupTypeArray = [
     value: 'invitation',
     name: 'Invitation',
   },
+  {
+    value: 'close',
+    name: 'Fermé',
+  },
 ];
 
 export const sportPraticedArray = [
+  {
+    value: 'walking',
+    name: 'Marche',
+  },
   {
     value: 'road_running',
     name: 'Course à pied',
@@ -22,10 +26,7 @@ export const sportPraticedArray = [
     value: 'trail_running',
     name: 'Trail',
   },
-  {
-    value: 'walking',
-    name: 'Marche',
-  },
+
   {
     value: 'road_cycling',
     name: 'Vélo sur route',

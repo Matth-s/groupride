@@ -32,7 +32,7 @@ const ActionButtonJoinList = ({
   };
 
   const handleRefuse = (): void => {
-    startTransition(() => {
+    startTransition((): void => {
       refuseUserGroup({ groupId, userId }).then((res) => {
         console.log(res?.error);
         if (res?.error) {

@@ -1,9 +1,5 @@
 import React from 'react';
 
-import Aside from '@/components/group/aside/Aside';
-import notFound from './not-found';
-import GroupHeader from '@/components/group/group-header/GroupHeader';
-
 import {
   getGroupById,
   getUserInGroup,
@@ -11,11 +7,15 @@ import {
 } from '@/data/group';
 import { auth } from '@/auth';
 
-import styles from './styles.module.scss';
 import ClientOnly from '@/components/ClientOnly';
 import KickUserModal from '@/components/modals/kick-user-modal/KickUserModal';
 import UpdateUserModal from '@/components/modals/update-user-modal/UpdateUserModal';
 import LeaveGroupModal from '@/components/modals/leave-group-modal/LeaveGroupModal';
+import Aside from '@/components/group/aside/Aside';
+import notFound from './not-found';
+import GroupHeader from '@/components/group/group-header/GroupHeader';
+
+import styles from './styles.module.scss';
 
 type GroupLayoutProps = {
   children: React.ReactNode;
@@ -61,7 +61,7 @@ const GroupLayout = async ({
       />
       <div className={styles.Main}>
         <Aside id={params.id} />
-        {children}
+        <div className={styles.RightPart}>{children}</div>
       </div>
 
       <ClientOnly>

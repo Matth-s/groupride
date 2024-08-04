@@ -1,3 +1,5 @@
+import GroupMessageContainer from '@/components/group/group-message/group-message-container/GroupMessageContainer';
+
 import React from 'react';
 
 type GroupPageProps = {
@@ -6,8 +8,14 @@ type GroupPageProps = {
   };
 };
 
-const GroupPage = ({}: GroupPageProps) => {
-  return <div>grouppage</div>;
+const GroupPage = ({ params }: GroupPageProps) => {
+  if (!params.id) return;
+
+  return (
+    <div>
+      <GroupMessageContainer groupId={params.id} />
+    </div>
+  );
 };
 
 export default GroupPage;
