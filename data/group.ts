@@ -1,3 +1,4 @@
+import { SportPracticed } from '@/interfaces/groups';
 import prisma from '@/libs/prisma';
 
 export const getGroupByName = async (name: string) => {
@@ -45,6 +46,25 @@ export const getUserInInvitationList = async ({
       });
 
     return existingUserInvitation;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getSportPraticedInGroup = async (
+  groupId: string
+): Promise<SportPracticed[] | null> => {
+  try {
+    const sportPraticed = await prisma.group.findMany({
+      where: {
+        id: groupId,
+      },
+      select: {
+        sportPraticed: true,
+      },
+    });
+
+    return sportPraticed[0].sportPraticed as any;
   } catch (error) {
     return null;
   }

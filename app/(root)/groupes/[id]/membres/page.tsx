@@ -1,4 +1,4 @@
-import MembersList from '@/components/group/group-member/members-list/MembersList';
+import MembersList from '@/components/group-member/members-list/MembersList';
 import { GroupSearchParamsInterface } from '@/interfaces/searchParams';
 import React, { Suspense } from 'react';
 

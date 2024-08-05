@@ -7,6 +7,8 @@ type FormSubmitSuccessProps = {
 };
 
 const FormSubmitSuccess = ({ message }: FormSubmitSuccessProps) => {
+  if (!message) return;
+
   return (
     <div className={styles.FormSubmitSuccess}>
       <p>{message}</p>

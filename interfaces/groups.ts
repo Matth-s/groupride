@@ -5,12 +5,12 @@ export enum GroupType {
 }
 
 export enum SportPracticed {
-  'road_running',
-  'trail_running',
-  'walking',
-  'road_cycling',
-  'gravel_cycling',
-  'mountain_biking',
+  road_running = 'road_running',
+  trail_running = 'trail_running',
+  walking = 'walking',
+  road_cycling = 'road_cycling',
+  gravel_cycling = 'gravel_cycling',
+  mountain_biking = 'mountain_biking',
 }
 
 export enum GroupRole {

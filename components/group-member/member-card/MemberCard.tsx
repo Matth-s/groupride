@@ -5,7 +5,7 @@ import { getUserImageUsernameById } from '@/data/user';
 
 import ButtonActionList from '../action-button-list/ActionButtonList';
 import ClientOnly from '@/components/ClientOnly';
-import UserCardGroup from '../../user-card-group/UserCardGroup';
+import UserCardGroup from '../../group-id/user-card-group/UserCardGroup';
 
 import styles from './styles.module.scss';
 

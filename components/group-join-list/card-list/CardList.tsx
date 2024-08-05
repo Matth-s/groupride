@@ -2,7 +2,7 @@ import { getUserImageUsernameById } from '@/data/user';
 import { UserList } from '@/interfaces/invitation';
 import { Button } from '@mui/material';
 import React from 'react';
-import UserCardGroup from '../../user-card-group/UserCardGroup';
+import UserCardGroup from '../../group-id/user-card-group/UserCardGroup';
 
 import styles from './styles.module.scss';
 import ActionButtonJoinList from '../action-button-join-list/ActionButtonJoinList';

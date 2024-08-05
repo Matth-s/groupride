@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import JoinList from '@/components/group/group-join-list/join-list/JoinList';
+import JoinList from '@/components/group-join-list/join-list/JoinList';
 import { isUserAdminGroup } from '@/data/group';
 import { GroupSearchParamsInterface } from '@/interfaces/searchParams';
 import React, { Suspense } from 'react';

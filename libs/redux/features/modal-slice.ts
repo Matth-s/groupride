@@ -1,33 +1,16 @@
 'use client';
 
-import { GroupRole } from '@/interfaces/groups';
+import {
+  modalKickUserDefault,
+  modalLeaveGroupDefault,
+  modalUpdateUserDefault,
+} from '@/constants/modal-state';
 import {
   modalKickUserInterface,
   modalLeaveGroup,
   modalUpdateUserInterface,
 } from '@/interfaces/modal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-const modalLeaveGroupDefault: modalLeaveGroup = {
-  open: false,
-  groupId: '',
-};
-
-const modalKickUserDefault: modalKickUserInterface = {
-  open: false,
-  userIdToKick: '',
-  usernameToKick: '',
-  groupId: '',
-};
-
-const modalUpdateUserDefault: modalUpdateUserInterface = {
-  open: false,
-  userIdToUpdate: '',
-  usernameToUpdate: '',
-  groupId: '',
-  memberRole: GroupRole.member,
-  currentUserRole: 'admin',
-};
 
 interface initialState {
   modalKickUser: modalKickUserInterface;
@@ -63,6 +46,7 @@ export const modalSlice = createSlice({
     ) => {
       state.modalLeaveGroup = action.payload;
     },
+
     closeModal: (state) => {
       state.modalKickUser = modalKickUserDefault;
       state.modalUpdateUser = modalUpdateUserDefault;

@@ -11,9 +11,9 @@ import ClientOnly from '@/components/ClientOnly';
 import KickUserModal from '@/components/modals/kick-user-modal/KickUserModal';
 import UpdateUserModal from '@/components/modals/update-user-modal/UpdateUserModal';
 import LeaveGroupModal from '@/components/modals/leave-group-modal/LeaveGroupModal';
-import Aside from '@/components/group/aside/Aside';
+import Aside from '@/components/group-id/aside/Aside';
 import notFound from './not-found';
-import GroupHeader from '@/components/group/group-header/GroupHeader';
+import GroupHeader from '@/components/group-id/group-header/GroupHeader';
 
 import styles from './styles.module.scss';
 

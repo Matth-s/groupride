@@ -4,7 +4,7 @@ import { getUpdateUserData } from '@/libs/redux/features/modal-slice';
 import { useAppSelector } from '@/libs/redux/hooks';
 import React from 'react';
 import Modal from '../Modal';
-import UpdateUserRoleForm from '@/components/group/group-member/update-user-role-form/UpdateUserRoleForm';
+import UpdateUserRoleForm from '@/components/group-member/update-user-role-form/UpdateUserRoleForm';
 
 const UpdateUserModal = () => {
   const {

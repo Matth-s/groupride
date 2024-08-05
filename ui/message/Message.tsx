@@ -1,10 +1,11 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import React from 'react';
 import { MessageInterface } from '@/interfaces/message';
-import Image from 'next/image';
+import { useLongPress } from 'use-long-press';
 
+import React from 'react';
+import Image from 'next/image';
 import styles from './styles.module.scss';
 
 type MessageProps = {
@@ -13,11 +14,12 @@ type MessageProps = {
 
 const Message = ({ messageObject }: MessageProps) => {
   const { data: session, status } = useSession();
-
-  if (status === 'loading') return;
+  const bind = useLongPress(() => {
+    alert('Long pressed!');
+  });
+  if (status === 'loading') return null;
 
   const { userId, message, user } = messageObject;
-
   const isOwn = session?.user.id === userId;
 
   return (
@@ -27,7 +29,7 @@ const Message = ({ messageObject }: MessageProps) => {
       }`}
     >
       <div className={styles.Body}>
-        <p>{message}</p>
+        <p {...bind()}>{message}</p>
         <Image
           src={user.image || '/no-image-user.svg'}
           height={40}

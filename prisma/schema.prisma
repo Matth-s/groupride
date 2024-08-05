@@ -23,16 +23,18 @@ model User {
   emailVerified DateTime?
   location      String?
 
-  group            Group[]
-  groups           GroupUser[]
-  invitations      InvitationList[]
-  groupMessageSeen GroupMessageSeen[]
-  groupMessage     GroupMessage[]
+  group             Group[]
+  groups            GroupUser[]
+  invitations       InvitationList[]
+  groupMessageSeen  GroupMessageSeen[]
+  groupMessage      GroupMessage[]
+  groupEvent        GroupEvent[]
+  userResponseEvent UserResponseEvent[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([email, username])
+  @@unique([email, username, id])
 }
 
 model verificationToken {
@@ -52,14 +54,45 @@ model Group {
   postalCode     Int[]
   image          String?
   moderatorId    String
+  createdAt      DateTime           @default(now())
   groupType      GroupType          @default(open)
   sportPraticed  SportPracticed[]   @default([])
-  createdAt      DateTime           @default(now())
   users          GroupUser[]
   invitationList InvitationList[]
   conversation   GroupConversation?
+  groupEvent     GroupEvent[]
 
   user User @relation(fields: [moderatorId], references: [id])
+}
+
+model GroupEvent {
+  id            String   @id @default(cuid())
+  groupId       String
+  name          String
+  creatorId     String
+  location      String
+  postalCode    Int
+  departureDate DateTime
+  startAt       DateTime
+  description   String
+  createdAt     DateTime @default(now())
+
+  response      UserResponseEvent[]
+  sportPraticed SportPracticed[]
+
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [creatorId], references: [id])
+}
+
+model UserResponseEvent {
+  groupEventId String
+  userId       String
+  response     ResponseType @default(PENDING)
+
+  groupEvent GroupEvent @relation(fields: [groupEventId], references: [id], onDelete: Cascade)
+  user       User?      @relation(fields: [userId], references: [id])
+
+  @@id([groupEventId, userId])
 }
 
 model GroupConversation {
@@ -134,4 +167,10 @@ enum GroupType {
   close
   open
   invitation
+}
+
+enum ResponseType {
+  PENDING
+  PARTICIPANT
+  ABSENT
 }

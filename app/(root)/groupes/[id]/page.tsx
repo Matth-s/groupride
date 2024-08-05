@@ -1,4 +1,4 @@
-import GroupMessageContainer from '@/components/group/group-message/group-message-container/GroupMessageContainer';
+import GroupMessageContainer from '@/components/group-message/group-message-container/GroupMessageContainer';
 
 import React from 'react';
 
