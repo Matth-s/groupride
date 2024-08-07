@@ -62,11 +62,11 @@ model Group {
   conversation   GroupConversation?
   groupEvent     GroupEvent[]
 
-  user User @relation(fields: [moderatorId], references: [id])
+  moderator User @relation(fields: [moderatorId], references: [id])
 }
 
 model GroupEvent {
-  id            String   @id @default(cuid())
+  id            String   @unique @default(cuid())
   groupId       String
   name          String
   creatorId     String
@@ -80,8 +80,8 @@ model GroupEvent {
   response      UserResponseEvent[]
   sportPraticed SportPracticed[]
 
-  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [creatorId], references: [id])
+  group     Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  moderator User  @relation(fields: [creatorId], references: [id])
 }
 
 model UserResponseEvent {

@@ -2,11 +2,21 @@ import { apiPrefix } from '@/routes';
 import { fetchEventsResponse } from '@/types/events';
 import { headers } from 'next/headers';
 
-export const fetchEvents = async (
-  groupId: string
-): Promise<fetchEventsResponse> => {
+export const fetchEvents = async ({
+  groupId,
+  filter,
+}: {
+  groupId: string;
+  filter: string | undefined;
+}): Promise<fetchEventsResponse> => {
+  const queryParams = new URLSearchParams();
+
+  if (filter) {
+    queryParams.set('evenements', filter);
+  }
+
   const response = await fetch(
-    `${apiPrefix}/groupes/${groupId}/evenements`,
+    `${apiPrefix}/groupes/${groupId}/evenements?${queryParams.toString()}`,
     {
       next: {
         tags: ['events'],

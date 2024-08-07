@@ -44,21 +44,53 @@ export const GET = async (
     );
   }
 
+  const searchParams = request.nextUrl.searchParams;
+  let whatEventTimeToSelect = searchParams.get('evenements');
+
+  if (
+    whatEventTimeToSelect !== 'passe' &&
+    whatEventTimeToSelect !== 'futur'
+  ) {
+    whatEventTimeToSelect = 'futur';
+  }
+
   try {
+    let dateFilter;
+    if (whatEventTimeToSelect === 'futur') {
+      dateFilter = {
+        gte: dayjs().toDate(),
+      };
+    } else if (whatEventTimeToSelect === 'passe') {
+      dateFilter = {
+        lt: dayjs().toDate(),
+      };
+    }
+
     const events = await prisma.groupEvent.findMany({
       where: {
         groupId: params.id,
-        createdAt: {
-          gte: dayjs().startOf('day').toDate(),
-        },
+        departureDate: dateFilter,
       },
       include: {
         response: true,
+        group: {
+          select: {
+            id: true,
+          },
+        },
+        moderator: {
+          select: {
+            username: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
 
     return NextResponse.json(events);
-  } catch {
+  } catch (error) {
     return NextResponse.json(
       {
         message: 'Une erreur est survenue',

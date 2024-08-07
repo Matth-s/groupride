@@ -1,27 +1,32 @@
 'use client';
 
 import {
+  modalDeleteEventDefault,
   modalKickUserDefault,
   modalLeaveGroupDefault,
   modalUpdateUserDefault,
 } from '@/constants/modal-state';
 import {
+  modalDeleteEvent,
   modalKickUserInterface,
   modalLeaveGroup,
   modalUpdateUserInterface,
 } from '@/interfaces/modal';
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface initialState {
   modalKickUser: modalKickUserInterface;
   modalUpdateUser: modalUpdateUserInterface;
   modalLeaveGroup: modalLeaveGroup;
+  modalDeleteEvent: modalDeleteEvent;
 }
 
 const initialState: initialState = {
   modalKickUser: modalKickUserDefault,
   modalUpdateUser: modalUpdateUserDefault,
   modalLeaveGroup: modalLeaveGroupDefault,
+  modalDeleteEvent: modalDeleteEventDefault,
 };
 
 export const modalSlice = createSlice({
@@ -46,11 +51,18 @@ export const modalSlice = createSlice({
     ) => {
       state.modalLeaveGroup = action.payload;
     },
+    openModalDeleteEvent: (
+      state,
+      action: PayloadAction<modalDeleteEvent>
+    ) => {
+      state.modalDeleteEvent = action.payload;
+    },
 
     closeModal: (state) => {
       state.modalKickUser = modalKickUserDefault;
       state.modalUpdateUser = modalUpdateUserDefault;
       state.modalLeaveGroup = modalLeaveGroupDefault;
+      state.modalDeleteEvent = modalDeleteEventDefault;
     },
   },
 
@@ -59,14 +71,16 @@ export const modalSlice = createSlice({
     getKickUserData: (state) => state.modalKickUser,
     getUpdateUserData: (state) => state.modalUpdateUser,
     getLeaveGroupData: (state) => state.modalLeaveGroup,
+    getDeleteEventData: (state) => state.modalDeleteEvent,
   },
 });
 
 export const {
   openModalKickUser,
-  closeModal,
   openModalUpdateUser,
   openModalLeaveGroup,
+  openModalDeleteEvent,
+  closeModal,
 } = modalSlice.actions;
 
 export const {
@@ -74,6 +88,7 @@ export const {
   getKickUserData,
   getUpdateUserData,
   getLeaveGroupData,
+  getDeleteEventData,
 } = modalSlice.selectors;
 
 export default modalSlice.reducer;

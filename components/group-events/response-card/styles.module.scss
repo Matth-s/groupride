@@ -1,0 +1,31 @@
+.ResponseCard {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .ResponseNumber {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  span {
+    display: block;
+    width: fit-content;
+    padding: 5px;
+    color: #ffffff;
+    border-radius: 5px;
+  }
+
+  span:first-child {
+    background-color: green;
+  }
+
+  span:nth-child(2) {
+    background-color: red;
+  }
+
+  span:last-child {
+    background-color: gray;
+  }
+}

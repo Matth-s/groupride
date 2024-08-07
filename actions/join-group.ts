@@ -1,7 +1,11 @@
 'use server';
 
 import { auth } from '@/auth';
-import { getUserInGroup } from '@/data/group';
+import {
+  getGroupById,
+  getGroupEventFuturIds,
+  getUserInGroup,
+} from '@/data/group';
 import prisma from '@/libs/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -21,25 +25,46 @@ export const joinGroup = async (groupId: string) => {
     };
   }
 
+  const existingGroup = await getGroupById(groupId);
+
+  if (!existingGroup) {
+    return {
+      error: "Ce groupe n'exsite pas",
+    };
+  }
+
   const userId = session.user.id;
 
-  const userIsAlreadyInGroup = await getUserInGroup({
+  const isUserAlreadyInGroup = await getUserInGroup({
     userId,
     groupId,
   });
 
-  if (userIsAlreadyInGroup) {
+  if (isUserAlreadyInGroup) {
     redirect(`/groupes/${groupId}`);
   }
 
+  const eventsIds = (await getGroupEventFuturIds(groupId)) || [];
+
   try {
-    await prisma.groupUser.create({
-      data: {
-        groupId,
-        userId,
-        role: 'member',
-      },
-    });
+    await prisma.$transaction([
+      prisma.groupUser.create({
+        data: {
+          groupId,
+          userId,
+          role: 'member',
+        },
+      }),
+
+      ...eventsIds?.map((event) => {
+        return prisma.userResponseEvent.create({
+          data: {
+            userId,
+            groupEventId: event.id,
+          },
+        });
+      }),
+    ]);
   } catch {
     return {
       error: 'Une erreur est survenue veuillez réessayer plus tard',
@@ -47,5 +72,7 @@ export const joinGroup = async (groupId: string) => {
   }
 
   revalidatePath(`/groupes/${groupId}/members`);
+  revalidatePath(`/groupes/${groupId}/evenements`);
+
   redirect(`/groupes/${groupId}`);
 };

@@ -13,6 +13,7 @@ import Modal from '../Modal';
 import SubmitButton from '@/ui/submit-button/SubmitButton';
 import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 import ActionButton from '../action-button/ActionButton';
+import CancelButtonModal from '@/ui/cancel-button-modal/CancelButtonModal';
 
 const KickUserModal = () => {
   const [isPending, startTransition] = useTransition();
@@ -26,10 +27,6 @@ const KickUserModal = () => {
   const dispatch = useAppDispatch();
 
   if (!isOpen) return;
-
-  const handleCancel = () => {
-    dispatch(closeModal());
-  };
 
   const handleDelete = (): void => {
     startTransition((): void => {
@@ -49,7 +46,7 @@ const KickUserModal = () => {
           }`
         );
 
-        handleCancel();
+        dispatch(closeModal());
       });
     });
   };
@@ -61,12 +58,8 @@ const KickUserModal = () => {
     >
       <div>
         <ActionButton>
-          <SubmitButton
-            isPending={isPending}
-            label="Annuler"
-            variant="contained"
-            onClick={handleCancel}
-          />
+          <CancelButtonModal label="Annuler" isDisabled={isPending} />
+
           <SubmitButton
             color="error"
             isPending={isPending}

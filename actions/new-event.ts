@@ -26,7 +26,7 @@ export const createEvent = async ({
   }
 
   const validatedFields = newEventSchema.safeParse(values);
-  console.log(groupId);
+
   if (
     !validatedFields.success ||
     !groupId ||
@@ -50,12 +50,24 @@ export const createEvent = async ({
 
   let newId = createId();
 
-  const userGroupId = await prisma.group.findMany({
+  const group: {
+    moderator: {
+      id: string;
+    };
+    users: {
+      userId: string;
+    }[];
+  }[] = await prisma.group.findMany({
     where: {
       id: groupId,
     },
     select: {
-      user: {
+      users: {
+        select: {
+          userId: true,
+        },
+      },
+      moderator: {
         select: {
           id: true,
         },
@@ -73,9 +85,8 @@ export const createEvent = async ({
           groupId,
         },
       }),
-      ...userGroupId.map((user) => {
-        const { id } = user.user;
-
+      ...group[0].users.map((user) => {
+        const id = user.userId;
         return prisma.userResponseEvent.create({
           data: {
             groupEventId: newId,
@@ -83,9 +94,14 @@ export const createEvent = async ({
           },
         });
       }),
+      prisma.userResponseEvent.create({
+        data: {
+          groupEventId: newId,
+          userId: group[0].moderator.id,
+        },
+      }),
     ]);
   } catch (error) {
-    //console.log(error);
     return {
       error:
         'Une erreur est survenue veillez réessayer ultérieurement',

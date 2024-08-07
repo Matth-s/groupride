@@ -1,5 +1,6 @@
 import { SportPracticed } from '@/interfaces/groups';
 import prisma from '@/libs/prisma';
+import dayjs from 'dayjs';
 
 export const getGroupByName = async (name: string) => {
   try {
@@ -202,6 +203,26 @@ export const getUserRole = async ({
     }
 
     return null;
+  } catch {
+    return null;
+  }
+};
+
+export const getGroupEventFuturIds = async (groupId: string) => {
+  try {
+    const groupEvents = await prisma.groupEvent.findMany({
+      where: {
+        groupId,
+        departureDate: {
+          gte: dayjs().toDate(),
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return groupEvents;
   } catch {
     return null;
   }

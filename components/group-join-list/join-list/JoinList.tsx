@@ -17,11 +17,15 @@ const JoinList = async ({ groupId }: JoinListProps) => {
 
   return (
     <div>
-      {data.map((demand, index) => (
-        <Suspense key={index}>
-          <CardList demand={demand} />
-        </Suspense>
-      ))}
+      {data.length > 0 ? (
+        data.map((demand, index) => (
+          <Suspense key={index}>
+            <CardList demand={demand} />
+          </Suspense>
+        ))
+      ) : (
+        <h3>Aucunes demandes</h3>
+      )}
     </div>
   );
 };

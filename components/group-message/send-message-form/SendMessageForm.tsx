@@ -33,7 +33,6 @@ const SendMessageForm = ({ groupId }: SendMessageFormProps) => {
     startTransition(() => {
       postGroupMessage({ message: values.message, groupId }).then(
         (res) => {
-          console.log(res);
           reset();
         }
       );

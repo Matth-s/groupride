@@ -5,8 +5,8 @@ type SubmitButtonProps = {
   isPending: boolean;
   label: string;
   color?: 'error' | 'secondary';
-  variant: 'outlined' | 'contained';
-  onClick?: () => void;
+  variant: 'outlined' | 'contained' | 'text';
+  onClick?: () => void | undefined;
   fullWidth?: boolean;
 };
 

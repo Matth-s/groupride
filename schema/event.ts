@@ -15,3 +15,14 @@ export const newEventSchema = z.object({
   description: z.string(),
   sportPraticed: z.array(sportPraticed),
 });
+
+export const sendResponseEventSchema = z.object({
+  groupId: z.string().trim().min(1),
+  response: z.enum(['PARTICIPANT', 'ABSENT']),
+  groupEventId: z.string().trim().min(1),
+});
+
+export const deleteEventSchema = z.object({
+  eventId: z.string().trim().min(1),
+  groupId: z.string().trim().min(1),
+});

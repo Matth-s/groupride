@@ -20,3 +20,10 @@ export interface modalLeaveGroup {
   open: boolean;
   groupId: string;
 }
+
+export interface modalDeleteEvent {
+  open: boolean;
+  eventId: string;
+  eventName: string;
+  groupId: string;
+}

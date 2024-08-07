@@ -7,16 +7,18 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createEvent } from '@/actions/new-event';
 import { SportPracticed } from '@/interfaces/groups';
+import React, { useState, useTransition } from 'react';
 
 import FormFieldError from '@/ui/form-field-error/FormFieldError';
 import LocationInput from '../location-input/LocationInput';
 import SubmitButton from '@/ui/submit-button/SubmitButton';
 import SelectSport from '../select-sport/SelectSport';
-
-import React, { useTransition } from 'react';
+import DatePicker from '../date-picker/DatePicker';
+import dayjs from 'dayjs';
+import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 
 import styles from './styles.module.scss';
-import DatePicker from '../date-picker/DatePicker';
+import { toastSuccess } from '@/libs/toast';
 
 type NewEventFormProps = {
   groupId: string;
@@ -27,6 +29,7 @@ const NewEventForm = ({
   groupId,
   sportPraticed,
 }: NewEventFormProps) => {
+  const [error, setError] = useState<string | undefined>();
   const [isPending, startTranstition] = useTransition();
   const {
     handleSubmit,
@@ -39,7 +42,7 @@ const NewEventForm = ({
       name: '',
       location: undefined,
       postalCode: undefined,
-      departureDate: new Date(),
+      departureDate: dayjs().add(1, 'week').toDate(),
       startAt: new Date(),
       description: '',
       sportPraticed: sportPraticed,
@@ -50,15 +53,19 @@ const NewEventForm = ({
   const handleFormSubmit = (
     values: z.infer<typeof newEventSchema>
   ) => {
-    console.log(values);
+    setError(undefined);
     startTranstition(() => {
-      createEvent({ values, groupId }).then((res) =>
-        console.log(res)
-      );
+      createEvent({ values, groupId }).then((res) => {
+        if (res?.error) {
+          return setError(res.error);
+        }
+
+        toastSuccess(
+          `L'évènement "${values.name}" a été crée avec succès`
+        );
+      });
     });
   };
-
-  console.log(errors);
 
   return (
     <div className={styles.NewFormEvent}>
@@ -117,6 +124,8 @@ const NewEventForm = ({
           label="Créer l'evenement"
           variant="contained"
         />
+
+        <FormSubmitError message={error} />
       </form>
     </div>
   );

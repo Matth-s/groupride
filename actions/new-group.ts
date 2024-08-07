@@ -50,7 +50,7 @@ export const createNewGroup = async (
       data: {
         id,
         ...validatedFields.data,
-        user: {
+        moderator: {
           connect: {
             id: session.user.id,
           },

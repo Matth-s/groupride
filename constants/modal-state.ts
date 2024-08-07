@@ -1,5 +1,6 @@
 import { GroupRole } from '@/interfaces/groups';
 import {
+  modalDeleteEvent,
   modalKickUserInterface,
   modalLeaveGroup,
   modalUpdateUserInterface,
@@ -24,4 +25,11 @@ export const modalUpdateUserDefault: modalUpdateUserInterface = {
   groupId: '',
   memberRole: GroupRole.member,
   currentUserRole: 'admin',
+};
+
+export const modalDeleteEventDefault: modalDeleteEvent = {
+  open: false,
+  eventId: '',
+  eventName: '',
+  groupId: '',
 };

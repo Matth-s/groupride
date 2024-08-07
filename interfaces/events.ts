@@ -2,14 +2,14 @@ import { SportPracticed } from './groups';
 
 export interface UserResponseEventInterface {
   userId: string;
-  groupId: string;
   response: UserResponse;
+  groupEventId: string;
 }
 
 export enum UserResponse {
-  'PENDING',
-  'PARTICIPANT',
-  'ABSENT',
+  pending = 'PENDING',
+  participant = 'PARTICIPANT',
+  absent = 'ABSENT',
 }
 
 export interface EventInterface {
@@ -23,7 +23,9 @@ export interface EventInterface {
   startAt: Date;
   description: string;
   createdAt: Date;
-
+  moderator: {
+    username: string;
+  };
   response: UserResponseEventInterface[];
   sportPraticed: SportPracticed[];
 }

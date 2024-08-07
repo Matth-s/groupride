@@ -26,7 +26,7 @@ const InputFocusWrapper = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, setOpenResult]);
 
   return <div ref={wrapperRef}>{children}</div>;
 };
