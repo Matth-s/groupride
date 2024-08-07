@@ -26,11 +26,12 @@ const SendMessageForm = ({ groupId }: SendMessageFormProps) => {
 
   const handleFormSubmit = async (values: { message: string }) => {
     startTransition(() => {
-      postGroupMessage({ message: values.message, groupId }).then(
-        () => {
-          reset();
-        }
-      );
+      void postGroupMessage({
+        message: values.message,
+        groupId,
+      }).then(() => {
+        reset();
+      });
     });
   };
 

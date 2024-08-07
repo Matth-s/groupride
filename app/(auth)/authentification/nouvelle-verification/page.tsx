@@ -21,7 +21,7 @@ const NewConfirmationPageContent = () => {
       return setError('Token manquant');
     }
 
-    newVerification(token).then((res) => {
+    void newVerification(token).then((res) => {
       setError(res.error);
       setSuccess(res.success);
     });

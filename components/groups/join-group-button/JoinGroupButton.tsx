@@ -13,7 +13,7 @@ const JoinGroupButton = ({ groupId }: JoinGroupButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
   const handleFormSubmit = (): void => {
-    startTransition(() => {
+    void startTransition(() => {
       joinGroup(groupId).then((res) => {
         if (res?.error) {
           toastError(res.error);

@@ -34,7 +34,7 @@ const ResponseButton = ({
     .find((user) => user.userId === currentUserId);
 
   const handleSendResponse = (response: 'PARTICIPANT' | 'ABSENT') => {
-    startTransition(() => {
+    void startTransition(() => {
       sendEventResponse({
         response,
         groupId,

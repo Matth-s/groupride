@@ -29,7 +29,7 @@ const KickUserModal = () => {
   if (!isOpen) return;
 
   const handleDelete = (): void => {
-    startTransition((): void => {
+    void startTransition((): void => {
       kickUser({
         groupId,
         userIdToKick,

@@ -55,7 +55,7 @@ const NewEventForm = ({
   ) => {
     setError(undefined);
     startTranstition(() => {
-      createEvent({ values, groupId }).then((res) => {
+      void createEvent({ values, groupId }).then((res) => {
         if (res?.error) {
           return setError(res.error);
         }

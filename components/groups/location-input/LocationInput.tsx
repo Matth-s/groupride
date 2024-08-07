@@ -46,7 +46,7 @@ const LocationInput = ({
           onClick={() => handleSearch(value ?? '')}
           onChange={(e) => {
             setTimeout(() => {
-              handleSearch(e.target.value);
+              void handleSearch(e.target.value);
             }, 300);
             setValue('location', e.target.value);
           }}

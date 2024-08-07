@@ -20,7 +20,7 @@ const ActionButtonJoinList = ({
   const [isPending, startTransition] = useTransition();
 
   const handleAccept = (): void => {
-    startTransition(() => {
+    void startTransition(() => {
       acceptUserInGroup({ groupId, userId }).then((res) => {
         if (res?.error) {
           return toastError(res.error);

@@ -56,7 +56,7 @@ const UpdateUserRoleForm = ({
     values: z.infer<typeof updateUserSchema>
   ): void => {
     setError(undefined);
-    startTransition((): void => {
+    void startTransition((): void => {
       updateRoleUserGroup(values).then((res) => {
         if (res?.error) {
           setError(res.error);

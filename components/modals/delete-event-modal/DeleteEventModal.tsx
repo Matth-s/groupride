@@ -23,7 +23,7 @@ const DeleteEventModal = () => {
   if (!open) return;
 
   const handleDeleteEvent = () => {
-    startTransition(() => {
+    void startTransition(() => {
       deleteEvent({
         eventId,
         groupId,
