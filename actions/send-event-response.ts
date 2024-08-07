@@ -3,7 +3,7 @@
 import { auth } from '@/auth';
 import { z } from 'zod';
 import { sendResponseEventSchema } from '@/schema/event';
-import { getGroupById, getUserInGroup } from '@/data/group';
+import { getUserInGroup } from '@/data/group';
 import { getEventById } from '@/data/event';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import prisma from '@/libs/prisma';

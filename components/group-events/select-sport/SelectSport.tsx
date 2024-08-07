@@ -17,12 +17,10 @@ type SelectSportProps = {
   setValue: UseFormSetValue<z.infer<typeof newEventSchema>>;
   sportSelected: UseFormWatch<z.infer<typeof newEventSchema>>;
   sportPraticed: SportPracticed[];
-  groupId: string;
 };
 
 const SelectSport = ({
   setValue,
-  groupId,
   sportPraticed,
   sportSelected,
 }: SelectSportProps) => {

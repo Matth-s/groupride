@@ -1,6 +1,5 @@
 import { getUserImageUsernameById } from '@/data/user';
 import { UserList } from '@/interfaces/invitation';
-import { Button } from '@mui/material';
 import React from 'react';
 import UserCardGroup from '../../group-id/user-card-group/UserCardGroup';
 

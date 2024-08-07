@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/libs/prisma';
 
 export const GET = async (request: NextRequest) => {
-  const searchParams = request.nextUrl.searchParams;
-
   try {
     const groups = await prisma.group.findMany({
       take: 12,

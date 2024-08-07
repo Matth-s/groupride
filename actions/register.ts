@@ -20,8 +20,7 @@ export const registerUser = async (
     };
   }
 
-  const { email, password, confirmPassword, username, ...rest } =
-    validatedFields.data;
+  const { email, password, username, ...rest } = validatedFields.data;
 
   const emailAlreadyTaken = await getUserByEmail(email);
 

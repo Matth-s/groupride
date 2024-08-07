@@ -1,8 +1,8 @@
 import { auth } from '@/auth';
 import prisma from '@/libs/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export const GET = async (req: NextRequest): Promise<Response> => {
+export const GET = async (): Promise<Response> => {
   const session = await auth();
 
   if (!session || !session.user.id) {

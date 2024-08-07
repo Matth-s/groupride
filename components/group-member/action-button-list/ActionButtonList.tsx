@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import { getUserRole } from '@/data/group';
 import { GroupRole } from '@/interfaces/groups';
-import { Session } from 'next-auth/types';
 
 import React from 'react';
 import KickUserButton from '../kick-user-button/KickUserButton';

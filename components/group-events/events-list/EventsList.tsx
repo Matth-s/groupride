@@ -16,7 +16,7 @@ const EventsList = async ({ groupId, filter }: EventsListProps) => {
   });
 
   if (!data || !success) {
-    return <p>Une erreur est survenue</p>;
+    return <p>{message}</p>;
   }
 
   return (

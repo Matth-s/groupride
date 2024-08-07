@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@mui/material';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type BackButtonProps = {
   label: string;

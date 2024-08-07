@@ -112,7 +112,6 @@ const NewEventForm = ({
 
         <div>
           <SelectSport
-            groupId={groupId}
             setValue={setValue}
             sportPraticed={sportPraticed}
             sportSelected={watch}

@@ -18,12 +18,7 @@ type SendMessageFormProps = {
 const SendMessageForm = ({ groupId }: SendMessageFormProps) => {
   const [isPending, startTransition] = useTransition();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    reset,
-  } = useForm({
+  const { handleSubmit, register, reset } = useForm({
     defaultValues: {
       message: '',
     },
@@ -32,7 +27,7 @@ const SendMessageForm = ({ groupId }: SendMessageFormProps) => {
   const handleFormSubmit = async (values: { message: string }) => {
     startTransition(() => {
       postGroupMessage({ message: values.message, groupId }).then(
-        (res) => {
+        () => {
           reset();
         }
       );

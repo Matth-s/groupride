@@ -7,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/libs/redux/hooks';
 import Modal from '../Modal';
 import ActionButton from '../action-button/ActionButton';
-import { useState, useTransition } from 'react';
+import { useTransition } from 'react';
 import SubmitButton from '@/ui/submit-button/SubmitButton';
 import CancelButtonModal from '@/ui/cancel-button-modal/CancelButtonModal';
 import { leaveGroup } from '@/actions/leave-group';
