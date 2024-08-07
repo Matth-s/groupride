@@ -21,7 +21,7 @@ const LeaveGroupModal = () => {
   if (!isOpen) return;
 
   const handleLeaveGroup = (): void => {
-    startTransition((): void => {
+    void startTransition((): void => {
       leaveGroup(groupId).then((res) => {
         if (res?.error) {
           return toastError(res.error);

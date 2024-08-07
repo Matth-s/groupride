@@ -3,12 +3,9 @@ export const dynamic = 'force-dynamic';
 import { auth } from '@/auth';
 import { isUserIngroup } from '@/data/group';
 import prisma from '@/libs/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export const GET = async (
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+export const GET = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
 
   if (!session?.user.id) {
@@ -22,8 +19,6 @@ export const GET = async (
   }
 
   const groupId = params.id;
-
-  console.log;
 
   const userIsInGroup = await isUserIngroup({
     groupId,
