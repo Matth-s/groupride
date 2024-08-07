@@ -8,7 +8,7 @@ type ResponseCardProps = {
   pendingTotal: number;
 };
 
-const ResponseCard = async ({
+const ResponseCard = ({
   participantTotal,
   absentTotal,
   pendingTotal,

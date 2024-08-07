@@ -10,10 +10,7 @@ type ResponseListProps = {
   groupId: string;
 };
 
-const ResponseList = async ({
-  responses,
-  groupId,
-}: ResponseListProps) => {
+const ResponseList = ({ responses, groupId }: ResponseListProps) => {
   const participant = responses.filter(
     (response) => response.response === 'PARTICIPANT'
   );

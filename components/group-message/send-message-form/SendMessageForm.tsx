@@ -24,7 +24,7 @@ const SendMessageForm = ({ groupId }: SendMessageFormProps) => {
     },
   });
 
-  const handleFormSubmit = async (values: { message: string }) => {
+  const handleFormSubmit = (values: { message: string }) => {
     startTransition(() => {
       void postGroupMessage({
         message: values.message,
