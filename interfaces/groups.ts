@@ -45,4 +45,7 @@ export interface groupInterface {
   groupType: GroupType;
   sportPracticed: SportPracticed[] | undefined;
   createdAt: string;
+  moderator: {
+    username: string;
+  };
 }

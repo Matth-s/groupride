@@ -20,7 +20,8 @@ export const registerUser = async (
     };
   }
 
-  const { email, password, username, ...rest } = validatedFields.data;
+  const { email, password, username, confirmPassword, ...rest } =
+    validatedFields.data;
 
   const emailAlreadyTaken = await getUserByEmail(email);
 
@@ -65,6 +66,7 @@ export const registerUser = async (
       success: "L'email de confirmation vous a été envoyé",
     };
   } catch (error) {
+    console.log(error);
     return {
       error: 'Une erreur est survenue veuillez réessayer',
     };

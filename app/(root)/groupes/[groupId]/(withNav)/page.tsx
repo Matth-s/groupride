@@ -4,16 +4,14 @@ import React from 'react';
 
 type GroupPageProps = {
   params: {
-    id?: string;
+    groupId: string;
   };
 };
 
 const GroupPage = ({ params }: GroupPageProps) => {
-  if (!params.id) return;
-
   return (
     <div>
-      <GroupMessageContainer groupId={params.id} />
+      <GroupMessageContainer groupId={params.groupId} />
     </div>
   );
 };

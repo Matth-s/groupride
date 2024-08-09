@@ -19,7 +19,6 @@ export default auth((req: NextRequest & { auth: Session | null }) => {
   const isAuthRoute = AUTH_ROUTES.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
-    console.log('true');
     return NextResponse.next();
   }
 

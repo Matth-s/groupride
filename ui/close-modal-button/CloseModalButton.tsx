@@ -9,7 +9,11 @@ import React from 'react';
 
 import styles from './styles.module.scss';
 
-const CloseModalButton = () => {
+type CloseModalButtonProps = {
+  onClick?: () => void;
+};
+
+const CloseModalButton = ({ onClick }: CloseModalButtonProps) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -21,7 +25,7 @@ const CloseModalButton = () => {
       className={styles.CloseModalButton}
       color={undefined}
       aria-label="close"
-      onClick={handleClick}
+      onClick={onClick ?? handleClick}
     >
       <CloseIcon />
     </Fab>

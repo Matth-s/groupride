@@ -4,14 +4,14 @@ import React from 'react';
 type EventsLayoutProps = {
   children: React.ReactNode;
   params: {
-    id: string;
+    groupId: string;
   };
 };
 
 const EventsLayout = ({ children, params }: EventsLayoutProps) => {
   return (
     <div>
-      <GroupEventsNav groupId={params.id} />
+      <GroupEventsNav groupId={params.groupId} />
       {children}
     </div>
   );

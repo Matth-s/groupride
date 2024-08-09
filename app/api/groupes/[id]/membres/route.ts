@@ -3,10 +3,15 @@ export const dynamic = 'force-dynamic';
 import { auth } from '@/auth';
 import { isUserIngroup } from '@/data/group';
 import prisma from '@/libs/prisma';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async ({ params }: { params: { id: string } }) => {
+export const GET = async (
+  _request: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const session = await auth();
+
+  console.error(params, 'params');
 
   if (!session?.user.id) {
     return NextResponse.json(
@@ -20,12 +25,12 @@ export const GET = async ({ params }: { params: { id: string } }) => {
 
   const groupId = params.id;
 
-  const userIsInGroup = await isUserIngroup({
+  const isUserInGroup = await isUserIngroup({
     groupId,
     userId: session.user.id,
   });
 
-  if (!userIsInGroup) {
+  if (!isUserInGroup) {
     return NextResponse.json(
       {
         message: "Vous n'avez pas l'autorisation de voir ce contenu",

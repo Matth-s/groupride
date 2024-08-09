@@ -8,7 +8,7 @@ import NewEventForm from '@/components/group-events/new-event-form/NewEventForm'
 import React from 'react';
 type Props = {
   params: {
-    id: string;
+    groupId: string;
   };
 };
 
@@ -18,20 +18,20 @@ const NewEventPage = async ({ params }: Props) => {
   if (!session?.user) return;
 
   const isAdmin = isUserAdminGroup({
-    groupId: params.id,
+    groupId: params.groupId,
     userId: session.user.id,
   });
 
   if (!isAdmin) return <p>vous ne pouvez pas</p>;
 
-  const sportPraticed = await getSportPraticedInGroup(params.id);
+  const sportPraticed = await getSportPraticedInGroup(params.groupId);
 
   if (!sportPraticed) return;
 
   return (
     <div>
       <NewEventForm
-        groupId={params.id}
+        groupId={params.groupId}
         sportPraticed={sportPraticed}
       />
     </div>

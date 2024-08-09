@@ -10,9 +10,9 @@ import { resultCityInterface } from '@/interfaces/location';
 import PlaceIcon from '@mui/icons-material/Place';
 import ClearIcon from '@mui/icons-material/Clear';
 import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
+import InputFocusWrapper from '@/components/input-focus-wrapper/InputFocusWrapper';
 
 import styles from './styles.module.scss';
-import InputFocusWrapper from '@/components/input-focus-wrapper/InputFocusWrapper';
 
 type LocationInputProps = {
   register: UseFormRegister<z.infer<typeof newGroupSchema>>;

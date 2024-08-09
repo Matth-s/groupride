@@ -2,12 +2,16 @@ import MembersList from '@/components/group-member/members-list/MembersList';
 import { GroupSearchParamsInterface } from '@/interfaces/searchParams';
 import React, { Suspense } from 'react';
 
-const MembresPage = ({ params }: GroupSearchParamsInterface) => {
-  if (!params?.id) return;
+type MembresPageProps = {
+  params: {
+    groupId: string;
+  };
+};
 
+const MembresPage = ({ params }: MembresPageProps) => {
   return (
     <Suspense fallback={<p>membres pas loading</p>}>
-      <MembersList groupId={params.id} />
+      <MembersList groupId={params.groupId} />
     </Suspense>
   );
 };

@@ -70,18 +70,63 @@ model GroupEvent {
   groupId       String
   name          String
   creatorId     String
-  location      String
-  postalCode    Int
+  city          String
+  lat           Float
+  lon           Float
   departureDate DateTime
   startAt       DateTime
   description   String
   createdAt     DateTime @default(now())
+  gpxFile       GPXFile?
 
   response      UserResponseEvent[]
   sportPraticed SportPracticed[]
 
   group     Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
   moderator User  @relation(fields: [creatorId], references: [id])
+}
+
+model GPXFile {
+  id        String     @id @default(cuid())
+  eventId   String     @unique
+  elevation Elevation?
+  points    Point[]
+  slopes    Float[]
+  distance  Distance?
+
+  groupEvent GroupEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Distance {
+  total Float
+  cumul Float[]
+
+  gpxFileId String @unique
+
+  gpxFile GPXFile @relation(fields: [gpxFileId], references: [id], onDelete: Cascade)
+}
+
+model Elevation {
+  id        String @id @default(cuid())
+  avg       Float
+  max       Float
+  min       Float
+  neg       Float
+  pos       Float
+  gpxFileId String @unique
+
+  gpxFile GPXFile @relation(fields: [gpxFileId], references: [id], onDelete: Cascade)
+}
+
+model Point {
+  id        String    @id @default(cuid())
+  lat       Float
+  lon       Float
+  ele       Float
+  time      DateTime?
+  gpxFileId String
+
+  gpxFile GPXFile @relation(fields: [gpxFileId], references: [id], onDelete: Cascade)
 }
 
 model UserResponseEvent {

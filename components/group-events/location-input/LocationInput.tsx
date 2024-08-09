@@ -1,75 +1,49 @@
 'use client';
 
 import React, { useState } from 'react';
-import { getPlaceWithStreetNumber } from '@/api/place';
-import { TextField } from '@mui/material';
-import { StreetNumberInterface } from '@/interfaces/location';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { z } from 'zod';
-import { newEventSchema } from '@/schema/event';
+import { Button } from '@mui/material';
+import L from 'leaflet';
 
-import debounce from 'debounce';
-import InputFocusWrapper from '@/components/input-focus-wrapper/InputFocusWrapper';
+import Modal from '@/components/modals/Modal';
 
 import styles from './styles.module.scss';
+import SelectLocationNewEvent from '@/components/maps/select-location-new-event/SelectLocationNewEvent';
 
 type LocationInputProps = {
-  setValue: UseFormSetValue<z.infer<typeof newEventSchema>>;
-  register: UseFormRegister<z.infer<typeof newEventSchema>>;
+  setEventLocation: ({
+    city,
+    lon,
+    lat,
+  }?: {
+    city?: string;
+    lon?: number;
+    lat?: number;
+  }) => void;
+
+  position: L.LatLng | null;
 };
 
 const LocationInput = ({
-  setValue,
-  register,
+  setEventLocation,
+  position,
 }: LocationInputProps) => {
-  const [places, setPlaces] = useState<StreetNumberInterface[]>([]);
-  const [openResult, setOpenResult] = useState<boolean>(false);
-
-  const handleSearch = debounce(async (value: string) => {
-    if (value.length < 3) return;
-
-    const searchResult = await getPlaceWithStreetNumber(value);
-    setPlaces(searchResult);
-  }, 300);
-
-  const handleSelectResult = (place: StreetNumberInterface) => {
-    setValue('location', `${place.name}, ${place.city}`);
-    setValue('postalCode', parseInt(place.postcode));
-    setOpenResult(false);
-  };
+  const [showMap, setShowMap] = useState<boolean>(false);
+  const handleCloseMap = () => setShowMap(false);
 
   return (
     <div className={styles.LocationInput}>
-      <InputFocusWrapper setOpenResult={setOpenResult}>
-        <TextField
-          type="text"
-          variant="outlined"
-          label="Adresse de départ (numéro de rue)"
-          {...register('location')}
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-          onFocus={() => setOpenResult(true)}
-        />
+      <Button onClick={() => setShowMap(true)}>
+        Ouvrir la carte
+      </Button>
 
-        <ul>
-          {openResult ? (
-            places.length > 0 ? (
-              places.map((place, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSelectResult(place)}
-                >
-                  <span>{place.name}</span>
-                  <span>{place.city}</span>
-                </li>
-              ))
-            ) : (
-              <li>Aucun résultat</li>
-            )
-          ) : null}
-        </ul>
-      </InputFocusWrapper>
+      {showMap ? (
+        <Modal onClick={handleCloseMap}>
+          <SelectLocationNewEvent
+            setLocation={setEventLocation}
+            position={position}
+          />
+        </Modal>
+      ) : null}
     </div>
   );
 };

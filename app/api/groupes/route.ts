@@ -5,6 +5,13 @@ export const GET = async (request: NextRequest) => {
   try {
     const groups = await prisma.group.findMany({
       take: 12,
+      include: {
+        moderator: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
 
     return NextResponse.json(groups);

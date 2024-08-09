@@ -19,6 +19,8 @@ import FormSubmitError from '@/ui/form-submit-error/FormSubmitError';
 
 import styles from './styles.module.scss';
 import { toastSuccess } from '@/libs/toast';
+import ImportFileActivity from '../import-file-acitvity/ImportFileActivity';
+import L from 'leaflet';
 
 type NewEventFormProps = {
   groupId: string;
@@ -40,15 +42,19 @@ const NewEventForm = ({
   } = useForm<z.infer<typeof newEventSchema>>({
     defaultValues: {
       name: '',
-      location: undefined,
-      postalCode: undefined,
+      lat: undefined,
+      lon: undefined,
+      city: undefined,
       departureDate: dayjs().add(1, 'week').toDate(),
       startAt: new Date(),
       description: '',
       sportPraticed: sportPraticed,
+      gpxFile: undefined,
     },
     resolver: zodResolver(newEventSchema),
   });
+
+  const { city, lat, lon } = watch();
 
   const handleFormSubmit = (
     values: z.infer<typeof newEventSchema>
@@ -65,6 +71,30 @@ const NewEventForm = ({
         );
       });
     });
+  };
+
+  const setEventLocation = ({
+    city,
+    lon,
+    lat,
+  }: {
+    city?: string;
+    lon?: number;
+    lat?: number;
+  } = {}) => {
+    if (
+      city === undefined ||
+      lon === undefined ||
+      lat === undefined
+    ) {
+      setValue('city', '');
+      setValue('lon', undefined);
+      setValue('lat', undefined);
+    } else {
+      setValue('city', city);
+      setValue('lon', lon);
+      setValue('lat', lat);
+    }
   };
 
   return (
@@ -95,28 +125,31 @@ const NewEventForm = ({
           />
         </div>
 
-        <div>
-          <DatePicker />
-        </div>
+        <DatePicker />
 
         <div>
-          <LocationInput setValue={setValue} register={register} />
-        </div>
-
-        <div>
-          <FormControl>
-            <InputLabel variant="outlined">Code postal</InputLabel>
-            <TextField {...register('postalCode')} disabled />
-          </FormControl>
-        </div>
-
-        <div>
-          <SelectSport
-            setValue={setValue}
-            sportPraticed={sportPraticed}
-            sportSelected={watch}
+          <LocationInput
+            setEventLocation={setEventLocation}
+            position={!!lat && !!lon ? L.latLng(lat, lon) : null}
           />
+          {city && (
+            <TextField
+              label="Ville de départ"
+              value={city}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          )}
         </div>
+
+        <SelectSport
+          setValue={setValue}
+          sportPraticed={sportPraticed}
+          sportSelected={watch}
+        />
+
+        <ImportFileActivity setValue={setValue} />
 
         <SubmitButton
           isPending={isPending}

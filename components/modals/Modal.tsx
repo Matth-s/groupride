@@ -4,15 +4,16 @@ import styles from './styles.module.scss';
 
 type ModalProps = {
   children: React.ReactNode;
-  title: string;
+  title?: string;
+  onClick?: () => void;
 };
 
-const Modal = ({ children, title }: ModalProps) => {
+const Modal = ({ children, title, onClick }: ModalProps) => {
   return (
     <div className={styles.Modal}>
-      <CloseModalButton />
+      <CloseModalButton onClick={onClick} />
       <div className={styles.Content}>
-        <h2>{title}</h2>
+        {title ? <h2>{title}</h2> : null}
         {children}
       </div>
     </div>

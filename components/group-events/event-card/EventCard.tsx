@@ -5,6 +5,7 @@ import DeleteEventButton from '../delete-event-button/DeleteEventButton';
 import ResponseList from '../response-list/ResponseList';
 
 import styles from './styles.module.scss';
+import Link from 'next/link';
 
 type EventCardProps = {
   event: EventInterface;
@@ -14,6 +15,11 @@ const EventCard = ({ event }: EventCardProps) => {
   return (
     <div className={styles.EventCard}>
       <div className={styles.Header}>
+        <Link
+          href={`/groupes/${event.groupId}/evenements/${event.id}`}
+        >
+          Afficher
+        </Link>
         <h4>{event.name}</h4>
         <DeleteEventButton
           creatorIdEvent={event.creatorId}
@@ -25,14 +31,11 @@ const EventCard = ({ event }: EventCardProps) => {
       <ul>
         <li>
           <span>
-            Adresse:{' '}
-            <span>
-              {event.location} {event.postalCode}
-            </span>
+            Ville de départ: <span>{event.city}</span>
           </span>
         </li>
         <li>
-          <span>Créateur de l&apos;évenement</span>:{' '}
+          <span>Créateur de l&apos;évènement</span>:{' '}
           <span>{event.moderator.username}</span>
         </li>
       </ul>

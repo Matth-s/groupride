@@ -6,6 +6,7 @@ import ClientOnly from '@/components/ClientOnly';
 import ButtonSkeleton from '@/ui/skeletons/button-skeleton/ButtonSkeleton';
 
 import styles from './styles.module.scss';
+import { formatDate } from '@/utils/date';
 
 type GroupCardProps = {
   group: groupInterface;
@@ -20,6 +21,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
     sportPracticed,
     description,
     createdAt,
+    moderator,
   } = group;
 
   return (
@@ -39,8 +41,9 @@ const GroupCard = ({ group }: GroupCardProps) => {
         </ul>
       </div>
       <p className="description">Description: {description}</p>
-      <p>Createur du groupe: {}</p>
-      <p>Crée le : {JSON.stringify(createdAt)}</p>
+      <p>Createur du groupe: {moderator.username}</p>
+      <p>Crée le : {formatDate(new Date(createdAt))}</p>
+      <p></p>
 
       <Suspense fallback={<ButtonSkeleton />}>
         <ClientOnly>

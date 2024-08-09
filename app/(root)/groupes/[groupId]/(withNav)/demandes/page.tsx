@@ -4,11 +4,13 @@ import { isUserAdminGroup } from '@/data/group';
 import { GroupSearchParamsInterface } from '@/interfaces/searchParams';
 import React, { Suspense } from 'react';
 
-const DemandesPage = async ({
-  params,
-}: GroupSearchParamsInterface) => {
-  if (!params?.id) return;
+type DemandesPageProps = {
+  params: {
+    groupId: string;
+  };
+};
 
+const DemandesPage = async ({ params }: DemandesPageProps) => {
   const session = await auth();
 
   if (!session) {
@@ -16,7 +18,7 @@ const DemandesPage = async ({
   }
 
   const isGroupAdmin = await isUserAdminGroup({
-    groupId: params.id,
+    groupId: params.groupId,
     userId: session.user.id,
   });
 
@@ -27,7 +29,7 @@ const DemandesPage = async ({
   return (
     <div>
       <Suspense fallback={<p>Chargement des demandes</p>}>
-        <JoinList groupId={params.id} />
+        <JoinList groupId={params.groupId} />
       </Suspense>
     </div>
   );

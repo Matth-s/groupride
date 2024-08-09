@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 
 type EvenementsPageProps = {
   params: {
-    id: string;
+    groupId: string;
     evenements?: string;
   };
   searchParams: {
@@ -21,7 +21,7 @@ const EvenementsPage = ({
       <EventsFilter filter={searchParams.evenements} />
       <Suspense fallback={<p>events page fallback</p>}>
         <EventsList
-          groupId={params.id}
+          groupId={params.groupId}
           filter={searchParams.evenements}
         />
       </Suspense>

@@ -24,6 +24,13 @@ export const GET = async (): Promise<Response> => {
       where: {
         moderatorId: userId,
       },
+      include: {
+        moderator: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
     return NextResponse.json(groups);
   } catch (error) {

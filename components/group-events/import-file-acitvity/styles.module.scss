@@ -1,0 +1,15 @@
+.ImportFileActivity {
+  width: 100%;
+
+  div {
+    width: 100%;
+  }
+
+  ul {
+    margin-top: 5px;
+
+    li:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

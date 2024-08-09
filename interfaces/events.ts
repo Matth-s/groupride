@@ -17,8 +17,9 @@ export interface EventInterface {
   groupId: string;
   name: string;
   creatorId: string;
-  location: string;
-  postalCode: number;
+  city: string;
+  lat: number;
+  lon: number;
   departureDate: Date;
   startAt: Date;
   description: string;
