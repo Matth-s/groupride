@@ -57,8 +57,6 @@ export const getEventData = async ({
       },
     });
 
-    console.log(eventData);
-
     return eventData;
   } catch {
     return null;
@@ -78,6 +76,55 @@ export const getTraceEvent = async (eventId: string) => {
     });
 
     return existingTrace;
+  } catch {
+    return null;
+  }
+};
+
+export const getInformationEvent = async (eventId: string) => {
+  try {
+    const existingEventData = await prisma.groupEvent.findFirst({
+      where: {
+        id: eventId,
+      },
+      include: {
+        moderator: {
+          select: {
+            username: true,
+          },
+        },
+      },
+    });
+
+    return existingEventData;
+  } catch {
+    return null;
+  }
+};
+
+export const getParticipantEvent = async (eventId: string) => {
+  try {
+    const participantEvent = await prisma.userResponseEvent.findMany({
+      where: {
+        groupEventId: eventId,
+      },
+      select: {
+        response: true,
+        responseAt: true,
+        user: {
+          select: {
+            id: true,
+            username: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        responseAt: 'desc',
+      },
+    });
+
+    return participantEvent;
   } catch {
     return null;
   }

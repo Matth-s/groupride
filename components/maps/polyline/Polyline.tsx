@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 
 type PolylineProps = {
   latlngs: {
     lat: number;
-    lon: number;
+    lng: number;
   }[];
 };
 
@@ -15,7 +15,7 @@ const Polyline = ({ latlngs }: PolylineProps) => {
   const map = useMap();
 
   const newLatlngs = latlngs.map(
-    (point) => new L.LatLng(point.lat, point.lon)
+    (point) => new L.LatLng(point.lat, point.lng)
   );
 
   useEffect(() => {

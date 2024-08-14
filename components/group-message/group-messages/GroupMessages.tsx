@@ -37,11 +37,23 @@ const GroupMessages = ({
       bottomRef?.current?.scrollIntoView();
     };
 
+    const messageDeletedHandler = (deletedMessage: {
+      messageId: string;
+    }) => {
+      setMessages((current) =>
+        current.filter(
+          (message) => message.id !== deletedMessage.messageId
+        )
+      );
+    };
+
     pusherClient.bind('messages:new', messageHandler);
+    pusherClient.bind('message-deleted', messageDeletedHandler);
 
     return () => {
       pusherClient.unsubscribe(groupId);
       pusherClient.unbind('messages:new', messageHandler);
+      pusherClient.unbind('message-deleted', messageDeletedHandler);
     };
   }, [groupId]);
 

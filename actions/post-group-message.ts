@@ -2,9 +2,11 @@
 
 import { auth } from '@/auth';
 import { getUserInGroup } from '@/data/group';
-import prisma from '@/libs/prisma';
 import { pusherServer } from '@/libs/pusher';
 import { z } from 'zod';
+
+import prisma from '@/libs/prisma';
+import { createId } from '@paralleldrive/cuid2';
 
 const schema = z.object({
   message: z.string().trim().min(1),
@@ -43,25 +45,31 @@ export const postGroupMessage = async (
     };
   }
 
+  const newMessageId = createId();
+
   try {
-    await prisma.groupConversation.update({
-      where: { groupId },
-      data: {
-        messages: {
-          create: {
-            message,
-            user: {
-              connect: {
-                id: session.user.id,
+    const { id: conversationId } =
+      await prisma.groupConversation.update({
+        where: { groupId },
+        data: {
+          messages: {
+            create: {
+              message,
+              id: newMessageId,
+              user: {
+                connect: {
+                  id: session.user.id,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
     await pusherServer.trigger(groupId, 'messages:new', {
       message,
+      conversationId,
+      id: newMessageId,
       userId: session.user.id,
       user: {
         username: session.user.username,

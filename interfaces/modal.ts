@@ -27,3 +27,10 @@ export interface modalDeleteEvent {
   eventName: string;
   groupId: string;
 }
+
+export interface modalDeleteMessage {
+  open: boolean;
+  messageId: string;
+  conversationId: string;
+  ownerIdMessage: string;
+}

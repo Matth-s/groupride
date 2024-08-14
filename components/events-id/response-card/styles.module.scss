@@ -1,0 +1,27 @@
+.ResponseCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 10px;
+  border-radius: 5px;
+
+  p {
+    margin-right: auto;
+  }
+}
+
+.Absent {
+  background-color: rgba($color: #ffb7b7, $alpha: 0.6);
+
+  svg {
+    color: red;
+  }
+}
+
+.Present {
+  background-color: rgba($color: #9aaf87, $alpha: 0.6);
+
+  svg {
+    color: green;
+  }
+}

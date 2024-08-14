@@ -4,12 +4,24 @@ export interface UserResponseEventInterface {
   userId: string;
   response: UserResponse;
   groupEventId: string;
+  responseAt: Date;
 }
 
 export enum UserResponse {
   pending = 'PENDING',
   participant = 'PARTICIPANT',
   absent = 'ABSENT',
+}
+
+export interface ResponseInterface {
+  responseAt: Date;
+  user: UserResponseInterface;
+}
+
+export interface UserResponseInterface {
+  id: string;
+  username: string;
+  image: null | string;
 }
 
 export interface EventInterface {

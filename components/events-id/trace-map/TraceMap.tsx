@@ -1,11 +1,13 @@
 import React from 'react';
 import MapContainer from '@/components/maps/map-container/MapContainer';
 import Polyline from '@/components/maps/polyline/Polyline';
-import Elevation from '@/components/maps/elevation/Elevation';
 import ClientOnly from '@/components/ClientOnly';
+import AccordionContainer from '../accordion-container/AccordionContainer';
+
 import { getTraceEvent } from '@/data/event';
 
 import styles from './styles.module.scss';
+import SetMarker from '@/components/maps/set-marker/SetMarker';
 
 type TraceMapProps = {
   eventId: string;
@@ -14,25 +16,26 @@ type TraceMapProps = {
 const TraceMap = async ({ eventId }: TraceMapProps) => {
   const existingTrace = await getTraceEvent(eventId);
 
-  if (!existingTrace) {
-    return <p>Aucune trace</p>;
-  }
+  if (!existingTrace) return;
 
   const latlngs = existingTrace.points.map((point) => {
     return {
       lat: point.lat,
-      lon: point.lon,
+      lng: point.lon,
     };
   });
 
   return (
     <ClientOnly>
-      <MapContainer
-        scrollWheelZoom={true}
-        className={styles.TraceMap}
-      >
-        <Polyline latlngs={latlngs} />
-      </MapContainer>
+      <AccordionContainer label="Parcours">
+        <MapContainer
+          scrollWheelZoom={true}
+          className={styles.TraceMap}
+        >
+          <Polyline latlngs={latlngs} />
+          <SetMarker position={latlngs[0]} />
+        </MapContainer>
+      </AccordionContainer>
     </ClientOnly>
   );
 };

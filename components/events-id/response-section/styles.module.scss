@@ -1,0 +1,11 @@
+.ResponseSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid green;
+  width: 300px;
+
+  h3 {
+    text-align: center;
+  }
+}

@@ -3,6 +3,8 @@
 import { useSession } from 'next-auth/react';
 import { MessageInterface } from '@/interfaces/message';
 import { useLongPress } from 'use-long-press';
+import { useAppDispatch } from '@/libs/redux/hooks';
+import { openModalDeleteMessage } from '@/libs/redux/features/modal-slice';
 
 import React from 'react';
 import Image from 'next/image';
@@ -14,12 +16,23 @@ type MessageProps = {
 
 const Message = ({ messageObject }: MessageProps) => {
   const { data: session, status } = useSession();
-  const bind = useLongPress(() => {
-    alert('Long pressed!');
-  });
+  const dispatch = useAppDispatch();
+
   if (status === 'loading') return null;
 
-  const { userId, message, user } = messageObject;
+  const { userId, message, user, conversationId, id } = messageObject;
+
+  const bind = useLongPress(() => {
+    dispatch(
+      openModalDeleteMessage({
+        open: true,
+        messageId: id,
+        ownerIdMessage: userId,
+        conversationId: conversationId,
+      })
+    );
+  });
+
   const isOwn = session?.user.id === userId;
 
   return (
@@ -29,7 +42,14 @@ const Message = ({ messageObject }: MessageProps) => {
       }`}
     >
       <div className={styles.Body}>
-        <p {...bind()}>{message}</p>
+        <p
+          {...bind()}
+          style={{
+            cursor: isOwn ? 'pointer' : 'unset',
+          }}
+        >
+          {message}
+        </p>
         <Image
           src={user.image || '/no-image-user.svg'}
           height={40}

@@ -2,13 +2,15 @@
   width: fit-content;
   padding: 10px;
   border-radius: 15px;
+  max-width: 80%;
 
   .Body {
     display: flex;
     gap: 15px;
 
     p {
-      cursor: pointer;
+      text-wrap: wrap;
+      word-break: break-all;
       padding: 10px;
       background-color: lightgray;
       border-radius: 5px;
@@ -24,4 +26,8 @@
   .Body {
     flex-direction: row-reverse;
   }
+}
+
+.MessagePressed {
+  background-color: #c96060;
 }

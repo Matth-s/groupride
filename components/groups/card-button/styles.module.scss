@@ -1,4 +1,7 @@
 .CardButton {
+  width: fit-content;
+  margin: auto;
+
   button {
     background-color: hsl(var(--primary)) !important;
     color: hsl(var(--primary-foreground));

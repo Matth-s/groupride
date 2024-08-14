@@ -5,7 +5,6 @@ import React from 'react';
 const MyGroupsPage = () => {
   return (
     <div>
-      mes groupes content
       <GroupList url={`${apiPrefix}/groupes/mes-groupes`} />
     </div>
   );

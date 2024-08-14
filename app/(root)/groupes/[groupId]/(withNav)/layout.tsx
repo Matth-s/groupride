@@ -8,6 +8,7 @@ import Aside from '@/components/group-id/aside/Aside';
 import DeleteEventModal from '@/components/modals/delete-event-modal/DeleteEventModal';
 
 import styles from './styles.module.scss';
+import DeleteMessageModal from '@/components/modals/delete-message-modal/DeleteMessageModal';
 
 type GroupLayoutProps = {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ const GroupLayout = async ({
         <UpdateUserModal />
         <LeaveGroupModal />
         <DeleteEventModal />
+        <DeleteMessageModal />
       </ClientOnly>
     </div>
   );

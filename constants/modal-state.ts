@@ -1,6 +1,7 @@
 import { GroupRole } from '@/interfaces/groups';
 import {
   modalDeleteEvent,
+  modalDeleteMessage,
   modalKickUserInterface,
   modalLeaveGroup,
   modalUpdateUserInterface,
@@ -32,4 +33,11 @@ export const modalDeleteEventDefault: modalDeleteEvent = {
   eventId: '',
   eventName: '',
   groupId: '',
+};
+
+export const modalDeleteMessageDefault: modalDeleteMessage = {
+  open: false,
+  messageId: '',
+  conversationId: '',
+  ownerIdMessage: '',
 };

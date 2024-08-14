@@ -2,12 +2,14 @@
 
 import {
   modalDeleteEventDefault,
+  modalDeleteMessageDefault,
   modalKickUserDefault,
   modalLeaveGroupDefault,
   modalUpdateUserDefault,
 } from '@/constants/modal-state';
 import {
   modalDeleteEvent,
+  modalDeleteMessage,
   modalKickUserInterface,
   modalLeaveGroup,
   modalUpdateUserInterface,
@@ -20,6 +22,7 @@ interface initialState {
   modalUpdateUser: modalUpdateUserInterface;
   modalLeaveGroup: modalLeaveGroup;
   modalDeleteEvent: modalDeleteEvent;
+  modalDeleteMessage: modalDeleteMessage;
 }
 
 const initialState: initialState = {
@@ -27,6 +30,7 @@ const initialState: initialState = {
   modalUpdateUser: modalUpdateUserDefault,
   modalLeaveGroup: modalLeaveGroupDefault,
   modalDeleteEvent: modalDeleteEventDefault,
+  modalDeleteMessage: modalDeleteMessageDefault,
 };
 
 export const modalSlice = createSlice({
@@ -57,12 +61,19 @@ export const modalSlice = createSlice({
     ) => {
       state.modalDeleteEvent = action.payload;
     },
+    openModalDeleteMessage: (
+      state,
+      action: PayloadAction<modalDeleteMessage>
+    ) => {
+      state.modalDeleteMessage = action.payload;
+    },
 
     closeModal: (state) => {
       state.modalKickUser = modalKickUserDefault;
       state.modalUpdateUser = modalUpdateUserDefault;
       state.modalLeaveGroup = modalLeaveGroupDefault;
       state.modalDeleteEvent = modalDeleteEventDefault;
+      state.modalDeleteMessage = modalDeleteMessageDefault;
     },
   },
 
@@ -72,6 +83,7 @@ export const modalSlice = createSlice({
     getUpdateUserData: (state) => state.modalUpdateUser,
     getLeaveGroupData: (state) => state.modalLeaveGroup,
     getDeleteEventData: (state) => state.modalDeleteEvent,
+    getDeleteMessageData: (state) => state.modalDeleteMessage,
   },
 });
 
@@ -80,6 +92,7 @@ export const {
   openModalUpdateUser,
   openModalLeaveGroup,
   openModalDeleteEvent,
+  openModalDeleteMessage,
   closeModal,
 } = modalSlice.actions;
 
@@ -89,6 +102,7 @@ export const {
   getUpdateUserData,
   getLeaveGroupData,
   getDeleteEventData,
+  getDeleteMessageData,
 } = modalSlice.selectors;
 
 export default modalSlice.reducer;

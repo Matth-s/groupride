@@ -133,9 +133,10 @@ model UserResponseEvent {
   groupEventId String
   userId       String
   response     ResponseType @default(PENDING)
+  responseAt   DateTime     @default(now())
 
   groupEvent GroupEvent @relation(fields: [groupEventId], references: [id], onDelete: Cascade)
-  user       User?      @relation(fields: [userId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
 
   @@id([groupEventId, userId])
 }
