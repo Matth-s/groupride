@@ -17,7 +17,7 @@ const EventIdLayout = async ({
   const session = await auth();
 
   if (!session?.user) {
-    return <p>Vous n'êtes pas connecté</p>;
+    return <p>Vous n&apos;êtes pas connecté</p>;
   }
 
   const isUserInGroup = await getUserInGroup({

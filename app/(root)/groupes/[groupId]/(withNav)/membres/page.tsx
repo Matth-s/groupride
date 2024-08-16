@@ -1,5 +1,4 @@
 import MembersList from '@/components/group-member/members-list/MembersList';
-import { GroupSearchParamsInterface } from '@/interfaces/searchParams';
 import React, { Suspense } from 'react';
 
 type MembresPageProps = {
