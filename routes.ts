@@ -6,6 +6,6 @@ export const AUTH_ROUTES = [
   '/authentification/nouvelle-verification',
 ];
 
-export const apiPrefix = 'http://localhost:3000/api';
+export const apiPrefix = 'https://main--groupe-ride.netlify.app/api';
 export const apiAuthPrefix = '/api/auth';
-export const URL = 'http://localhost:3000';
+export const URL = 'https://main--groupe-ride.netlify.app';
