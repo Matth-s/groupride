@@ -6,9 +6,9 @@ import UpdateUserModal from '@/components/modals/update-user-modal/UpdateUserMod
 import LeaveGroupModal from '@/components/modals/leave-group-modal/LeaveGroupModal';
 import Aside from '@/components/group-id/aside/Aside';
 import DeleteEventModal from '@/components/modals/delete-event-modal/DeleteEventModal';
+import DeleteMessageModal from '@/components/modals/delete-message-modal/DeleteMessageModal';
 
 import styles from './styles.module.scss';
-import DeleteMessageModal from '@/components/modals/delete-message-modal/DeleteMessageModal';
 
 type GroupLayoutProps = {
   children: React.ReactNode;

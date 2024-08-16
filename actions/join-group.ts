@@ -65,7 +65,8 @@ export const joinGroup = async (groupId: string) => {
         });
       }),
     ]);
-  } catch {
+  } catch (error) {
+    console.log(error);
     return {
       error: 'Une erreur est survenue veuillez réessayer plus tard',
     };

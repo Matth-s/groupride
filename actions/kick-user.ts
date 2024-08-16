@@ -87,6 +87,6 @@ export const kickUser = async ({
   }
 
   revalidateTag('members');
-  revalidatePath(`/groupes/${groupId}/membres`);
+  revalidatePath(`/groupes/${groupId}`, 'layout');
   redirect(`/groupes/${groupId}/membres`);
 };
